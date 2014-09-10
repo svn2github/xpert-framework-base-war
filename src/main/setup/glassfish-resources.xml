@@ -11,7 +11,7 @@
                           datasource-classname="org.postgresql.ds.PGSimpleDataSource" 
                           res-type="javax.sql.DataSource">
         <property name="User" value="postgres"></property>
-        <property name="DatabaseName" value="base"></property>
+        <property name="DatabaseName" value="xpert-framework-base"></property>
         <property name="Password" value="postgres"></property>
         <property name="Ssl" value="false"></property>
         <property name="ServerName" value="localhost"></property>
