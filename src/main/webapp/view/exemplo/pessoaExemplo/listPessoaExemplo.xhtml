@@ -1,0 +1,96 @@
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:p="http://primefaces.org/ui"
+                 template="/template/mainTemplate.xhtml"
+                 xmlns:x="http://xpert.com/faces">
+    <ui:param name="title" value="#{msg['pessoaExemplo.list']}" />
+    <ui:define name="body">
+        <ui:include src="menuPessoaExemplo.xhtml" />
+        <h:form id="formListPessoaExemplo">
+            <x:modalMessages/>
+            <p:dataTable paginator="true" rows="10" rowsPerPageTemplate="10,20,30" paginatorPosition="bottom" emptyMessage="#{xmsg['noRecordFound']}"
+                         var="pessoaExemplo" rowIndexVar="index" id="dataTablePessoaExemplo" widgetVar="dataTablePessoaExemploWidget" styleClass="table-responsive"
+                         currentPageReportTemplate="#{pessoaExemploMB.dataModel.currentPageReportTemplate}"
+                         paginatorTemplate="#{pessoaExemploMB.dataModel.paginatorTemplate}"
+                         value="#{pessoaExemploMB.dataModel}" lazy="true" >
+                <p:column styleClass="uix-datatable-index">
+                    <f:facet name="header">
+                        <p:commandButton onclick="dataTablePessoaExemploWidget.filter()" type="button" icon="ui-icon-refresh" />
+                    </f:facet>
+                    <h:outputText value="#{index+1}"/>
+                </p:column>
+                <p:column headerText="#{msg['pessoaExemplo.nome']}" sortBy="#{pessoaExemplo.nome}"
+                          filterBy="#{pessoaExemplo.nome}"   >
+                        <h:outputText value="#{pessoaExemplo.nome}"/>
+                </p:column>
+                <p:column headerText="#{msg['pessoaExemplo.email']}" sortBy="#{pessoaExemplo.email}"
+                          filterBy="#{pessoaExemplo.email}"   >
+                        <h:outputText value="#{pessoaExemplo.email}"/>
+                </p:column>
+                <p:column headerText="#{msg['pessoaExemplo.salary']}" sortBy="#{pessoaExemplo.salary}"
+                             style="text-align: right;">
+                        <h:outputText value="#{pessoaExemplo.salary}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                        </h:outputText>
+                </p:column>
+                <p:column headerText="#{msg['pessoaExemplo.dataNascimento']}" sortBy="#{pessoaExemplo.dataNascimento}"
+                          filterBy="#{pessoaExemplo.dataNascimento}"   style="text-align: center;">
+                        <f:facet name="header">
+                            #{msg['pessoaExemplo.dataNascimento']}
+                            <x:dateFilter/>
+                        </f:facet>
+                        <h:outputText value="#{pessoaExemplo.dataNascimento}">
+                            <f:convertDateTime />
+                        </h:outputText>
+                </p:column>
+                <p:column headerText="#{msg['pessoaExemplo.horario']}" sortBy="#{pessoaExemplo.horario}"
+                             style="text-align: center;">
+                        <h:outputText value="#{pessoaExemplo.horario}">
+                            <f:convertDateTime pattern="HH:mm"/>
+                        </h:outputText>
+                </p:column>
+                <p:column headerText="#{msg['pessoaExemplo.rg']}" sortBy="#{pessoaExemplo.rg}"
+                          filterBy="#{pessoaExemplo.rg}"   >
+                        <h:outputText value="#{pessoaExemplo.rg}"/>
+                </p:column>
+                <p:column headerText="#{msg['pessoaExemplo.active']}" sortBy="#{pessoaExemplo.active}"
+                          filterBy="#{pessoaExemplo.active}" filterOptions="#{booleanSelectItensEmptyOption}"  style="text-align: center;">
+                        <h:outputText value="#{pessoaExemplo.active}" converter ="yesNoConverter" />
+                </p:column>
+                <p:column styleClass="uix-datatable-actions" exportable="false" headerText="#{xmsg['actions']}">
+                    <f:facet name="header">
+                        <h:outputText value="#{xmsg['actions']}"/>
+                    </f:facet>
+                    <p:commandButton oncomplete="widgetPessoaExemploDetail.show();"  icon="ui-icon-zoomin" 
+                                     process="@form" update=":formDetailPessoaExemplo" title="#{xmsg['detail']}" >
+                        <f:setPropertyActionListener value="#{pessoaExemplo}" target="#{pessoaExemploMB.entity}" />
+                    </p:commandButton>
+                    <x:securityArea rolesAllowed="pessoaExemplo.create">
+                        <p:button icon="ui-icon-pencil" outcome="createPessoaExemplo" title="#{xmsg['edit']}">
+                            <f:param name="id" value="#{pessoaExemplo.id}" />
+                        </p:button>
+                    </x:securityArea>
+                    <x:securityArea rolesAllowed="pessoaExemplo.delete">
+                        <p:commandButton icon="ui-icon-trash" title="#{xmsg['delete']}" process="@form" update="@form" 
+                                         action="#{pessoaExemploMB.delete}" >
+                            <f:setPropertyActionListener value="#{pessoaExemplo.id}" target="#{pessoaExemploMB.id}" />
+                            <x:confirmation message="#{xmsg['confirmDelete']} - #{pessoaExemplo}" />
+                        </p:commandButton>
+                    </x:securityArea>
+                </p:column>
+                <f:facet name="footer">
+                    <x:securityArea rolesAllowed="pessoaExemplo.audit">
+                        <x:auditDelete for="#{pessoaExemploMB.entityClass}"/>
+                    </x:securityArea>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+
+        <p:dialog widgetVar="widgetPessoaExemploDetail" header="#{msg['pessoaExemplo.detail']}" appendToBody="true"
+                  modal="true" styleClass="uix-dialog-fluid" >
+            <ui:include src="detailPessoaExemplo.xhtml" />
+        </p:dialog>
+    </ui:define>
+</ui:composition>

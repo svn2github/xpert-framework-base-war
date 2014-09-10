@@ -1,0 +1,36 @@
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:custom="http://java.sun.com/jsf/composite/tag"
+                 template="/template/mainTemplate.xhtml"
+                 xmlns:x="http://xpert.com/faces"
+                 xmlns:security="http://java.sun.com/jsf/composite/xpert/components/security"
+                 xmlns:of="http://omnifaces.org/functions"
+                 >
+
+    <ui:param name="title" value="#{msg['bemVindo']}" />
+    <ui:define name="body">  
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <h:panelGroup rendered="#{not empty sessaoUsuarioMB.atalhos}" >
+                        <ui:repeat var="permissao" value="#{sessaoUsuarioMB.atalhos}">
+                            <div class="panel panel-default panel-permissao">
+                                <div class="panel-body">
+                                    <h:link outcome="#{permissao.urlMenuVerificado}" styleClass="link-permissao" >
+                                        <h:outputText value="#{permissao.caminhoPermissao}" class="caminho-permissao"/>
+                                        <span class="nome-permissao">
+                                            <h:outputText value="#{permissao.nomeMenuVerificado}"/>
+                                        </span>
+                                    </h:link>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </h:panelGroup>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

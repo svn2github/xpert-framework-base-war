@@ -1,0 +1,54 @@
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:x="http://xpert.com/faces">
+    <h:form id="formDetailPessoaExemplo" styleClass="uix-form-detail">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <h:outputLabel value="#{msg['pessoaExemplo.nome']}:" styleClass="control-label" /><br/>
+                    <h:outputText value="#{pessoaExemploMB.entity.nome}" styleClass="uix-content-detail"/>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <h:outputLabel value="#{msg['pessoaExemplo.email']}:" styleClass="control-label" /><br/>
+                    <h:outputText value="#{pessoaExemploMB.entity.email}" styleClass="uix-content-detail"/>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <h:outputLabel value="#{msg['pessoaExemplo.salary']}:" styleClass="control-label" /><br/>
+                    <h:outputText value="#{pessoaExemploMB.entity.salary}" styleClass="uix-content-detail">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                    </h:outputText>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <h:outputLabel value="#{msg['pessoaExemplo.dataNascimento']}:" styleClass="control-label" /><br/>
+                    <h:outputText value="#{pessoaExemploMB.entity.dataNascimento}" styleClass="uix-content-detail">
+                        <f:convertDateTime />
+                    </h:outputText>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <h:outputLabel value="#{msg['pessoaExemplo.horario']}:" styleClass="control-label" /><br/>
+                    <h:outputText value="#{pessoaExemplo.horario}" styleClass="uix-content-detail">
+                        <f:convertDateTime pattern="HH:mm"/>
+                    </h:outputText>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <h:outputLabel value="#{msg['pessoaExemplo.rg']}:" styleClass="control-label" /><br/>
+                    <h:outputText value="#{pessoaExemploMB.entity.rg}" styleClass="uix-content-detail"/>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <h:outputLabel value="#{msg['pessoaExemplo.active']}:" styleClass="control-label" /><br/>
+                    <h:outputText value="#{pessoaExemploMB.entity.active}" converter ="yesNoConverter"  styleClass="uix-content-detail"/>
+                </div>
+           </div>
+         </div>
+        <p:separator/>
+        <div class="uix-center">
+            <p:commandButton type="button" value="#{xmsg['close']}" onclick="widgetPessoaExemploDetail.hide()" />
+            <x:securityArea rolesAllowed="pessoaExemplo.audit">
+                <x:audit for="#{pessoaExemploMB.entity}"/>
+            </x:securityArea>
+        </div>
+    </h:form>
+</ui:composition>

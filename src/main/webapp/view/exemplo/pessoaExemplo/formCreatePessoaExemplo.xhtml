@@ -1,0 +1,68 @@
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:x="http://xpert.com/faces">
+    
+  
+    <h:form id="formCreatePessoaExemplo" styleClass="form-detail">
+        <p:fieldset legend="#{xmsg['generalData']}">
+            <x:modalMessages/>
+
+               <div class="container-fluid">
+                    <div class="row">
+                         <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <h:outputLabel for="nome" value="* #{msg['pessoaExemplo.nome']}:" />
+                            <p:inputText id="nome" value="#{pessoaExemploMB.entity.nome}" maxlength="200"  styleClass="form-control"  />
+                        </div>
+                         <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <h:outputLabel for="email" value="#{msg['pessoaExemplo.email']}:" />
+                            <p:inputText id="email" value="#{pessoaExemploMB.entity.email}" maxlength="100"  styleClass="form-control"  />
+                        </div>
+                         <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <h:outputLabel for="salary:input" value="#{msg['pessoaExemplo.salary']}:" />
+                            <x:inputNumber id="salary" value="#{pessoaExemploMB.entity.salary}" styleClass="form-control"/>
+                        </div>
+                         <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <h:outputLabel for="dataNascimento" value="* #{msg['pessoaExemplo.dataNascimento']}:" />
+                            <p:calendar id="dataNascimento" value="#{pessoaExemploMB.entity.dataNascimento}" 
+                                        showOn="button" pattern="dd/MM/yyyy" styleClass="uix-calendar"  >
+                                <x:mask/>
+                            </p:calendar>
+                        </div>
+                         <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <h:outputLabel for="horario" value="* #{msg['pessoaExemplo.horario']}:" />
+                            <p:calendar id="horario" value="#{pessoaExemploMB.entity.horario}" 
+                                        showOn="button" pattern="HH:mm" timeOnly="true" styleClass="uix-calendar">
+                                <x:mask/>
+                            </p:calendar>
+                        </div>
+                         <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <h:outputLabel for="rg" value="* #{msg['pessoaExemplo.rg']}:" />
+                            <p:inputText id="rg" value="#{pessoaExemploMB.entity.rg}" maxlength="10"  styleClass="form-control"  />
+                        </div>
+                         <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <div class="checkbox">
+                                <label>
+                                    <h:selectBooleanCheckbox id="active" value="#{pessoaExemploMB.entity.active}" />
+                                    #{msg['pessoaExemplo.active']}
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+          </p:fieldset>
+          <h:outputText value="#{xmsg['requiredFieldsForm']}"/>
+          <div class="uix-center">
+              <x:securityArea rolesAllowed="pessoaExemplo.create">
+                   <p:commandButton process="@form" update="@form" action="#{pessoaExemploMB.save}" value="#{xmsg['save']}" />
+              </x:securityArea>
+              <x:securityArea rolesAllowed="pessoaExemplo.audit">
+                   <x:audit for="#{pessoaExemploMB.entity}"/>
+              </x:securityArea>
+          </div>
+       </h:form>
+
+</ui:composition>
