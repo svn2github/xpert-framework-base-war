@@ -1,5 +1,6 @@
 package com.base.modelo.configuracao;
 
+import com.base.constante.Constantes;
 import com.base.modelo.controleacesso.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class ErroSistema implements Serializable {
     @Column(length = 500)
     private String informacaoNavegador;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = Constantes.TIPO_TEXTO_BANCO)
     private String pilhaErro;
 
     @Column(length = 190)

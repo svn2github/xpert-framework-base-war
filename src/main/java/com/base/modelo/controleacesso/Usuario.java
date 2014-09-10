@@ -12,60 +12,60 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@SequenceGenerator(name = "Usuario", allocationSize = 1, sequenceName = "usuario_id_seq")
 public class Usuario implements Serializable, User {
 
     @Id
+    @SequenceGenerator(name = "Usuario", allocationSize = 1, sequenceName = "usuario_id_seq")
     @GeneratedValue(generator = "Usuario")
     private Long id;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
-    
+
     @NotBlank
     private String nome;
-    
+
     @Size(max = 16)
     @NotBlank
     private String cpf;
-    
+
     @NotBlank
     @Size(max = 150)
     @Email
     private String email;
-   
+
     @Size(max = 50)
     private String matricula;
-   
+
     @Size(max = 230)
     private String rg;
-    
+
     @NotBlank
     @Size(min = 4)
     private String userLogin;
-  
+
     @NotAudited
     @Size(min = 5)
     private String userPassword;
-   
+
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
     private SituacaoUsuario situacaoUsuario;
-  
+
     @OrderBy(value = "descricao")
     @ManyToMany(targetEntity = Perfil.class, fetch = FetchType.LAZY)
-    @JoinTable(name = "usuario_perfil", joinColumns =  @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "perfil_id"))
+    @JoinTable(name = "usuario_perfil", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "perfil_id"))
     private List<Perfil> perfis;
-  
+
     @NotAudited
     @OrderBy("dataSituacao DESC")
     @OneToMany(mappedBy = "usuario")
     private List<HistoricoSituacaoUsuario> historicosSituacao;
-   
+
     private boolean superUsuario;
-    
+
     private Boolean emailCadastroEnviado;
-    
+
     private Boolean senhaCadastrada;
 
     public Usuario() {
@@ -80,8 +80,8 @@ public class Usuario implements Serializable, User {
         return situacaoUsuario != null && situacaoUsuario.equals(SituacaoUsuario.ATIVO);
     }
 
-     public Boolean getSenhaCadastrada() {
-        if(senhaCadastrada == null){
+    public Boolean getSenhaCadastrada() {
+        if (senhaCadastrada == null) {
             senhaCadastrada = false;
         }
         return senhaCadastrada;
@@ -90,9 +90,9 @@ public class Usuario implements Serializable, User {
     public void setSenhaCadastrada(Boolean senhaCadastrada) {
         this.senhaCadastrada = senhaCadastrada;
     }
-    
+
     public Boolean getEmailCadastroEnviado() {
-        if(emailCadastroEnviado == null){
+        if (emailCadastroEnviado == null) {
             emailCadastroEnviado = false;
         }
         return emailCadastroEnviado;
@@ -101,7 +101,7 @@ public class Usuario implements Serializable, User {
     public void setEmailCadastroEnviado(Boolean emailCadastroEnviado) {
         this.emailCadastroEnviado = emailCadastroEnviado;
     }
-    
+
     public String getRg() {
         return rg;
     }
