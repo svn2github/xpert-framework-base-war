@@ -2,7 +2,7 @@
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
     <!-- 
-    Abaixo deve ser comentado caso seja configuracao diretamentamente no servidor
+    Abaixo deve ser comentado caso seja configuracao diretamente no servidor
     -->
     <jdbc-resource enabled="true" jndi-name="jdbc/xpert-framework-baseDS" object-type="user" pool-name="xpert-framework-base">
         <description/>
