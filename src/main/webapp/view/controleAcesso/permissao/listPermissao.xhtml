@@ -91,7 +91,7 @@
                                     </p:button>
                                 </x:securityArea>
                                 <x:securityArea rolesAllowed="permissao.delete">
-                                    <p:commandButton icon="ui-icon-trash" process="@this" update="@form" action="#{permissaoMB.delete}" >
+                                    <p:commandButton icon="ui-icon-trash" process="@this" update="@form" action="#{permissaoMB.deleteArvore}" >
                                         <f:setPropertyActionListener value="#{permissao.id}" target="#{permissaoMB.id}" />
                                         <x:confirmation message="#{xmsg['confirmDelete']} - #{permissao.descricao}" />
                                     </p:commandButton>
