@@ -196,8 +196,6 @@ public class ReportUtils {
      * @param template Caminho do template (ao informar o template o reltorio
      * sera inserido como subrelatorio do template)
      * @param usuario usuario que sera passado por parametro ao relatorio
-     * @param unidadeDetran unidade detran que sera passada por parametro ao
-     * relatorio
      * @param entityManager
      */
     public static void createJasperReport(List dataSource, Map parameters, String path, String fileName, String template,
@@ -213,7 +211,6 @@ public class ReportUtils {
             parameters = new HashMap();
         }
 
-        //logamorcas do governo e do detran
         String logo = FacesContext.getCurrentInstance().getExternalContext().getRealPath(LOGO);
         if (new File(logo).exists()) {
             parameters.put("logo", logo);
