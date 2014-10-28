@@ -61,7 +61,7 @@
         <dependency>
             <groupId>com.xpert</groupId>
             <artifactId>xpert-framework</artifactId>
-            <version>1.8-SNAPSHOT</version>
+            <version>1.8</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
