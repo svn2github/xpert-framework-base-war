@@ -60,7 +60,7 @@
         </div>
         <p:separator/>
         <div class="text-center">
-            <p:commandButton type="button" value="#{xmsg['close']}" onclick="widgetConfiguracaoEmailDetail.hide()" />
+            <p:commandButton type="button" value="#{xmsg['close']}" onclick="PF('widgetConfiguracaoEmailDetail').hide()" />
             <x:securityArea rolesAllowed="configuracaoEmail.audit">
                 <x:audit for="#{configuracaoEmailMB.entity}"/>
             </x:securityArea>

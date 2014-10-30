@@ -62,7 +62,7 @@
         </div>
         <p:separator/>
         <div class="text-center">
-            <p:commandButton type="button" value="#{xmsg['close']}" onclick="widgetSolicitacaoRecuperacaoSenhaDetail.hide()" />
+            <p:commandButton type="button" value="#{xmsg['close']}" onclick="PF('widgetSolicitacaoRecuperacaoSenhaDetail').hide()" />
             <x:securityArea rolesAllowed="solicitacaoRecuperacaoSenha.audit">
                 <x:audit for="#{solicitacaoRecuperacaoSenhaMB.entity}"/>
             </x:securityArea>

@@ -1,6 +1,5 @@
 package com.base.mb.controleacesso;
 
-
 import com.base.bo.controleacesso.PermissaoBO;
 import com.base.modelo.controleacesso.Permissao;
 import java.io.Serializable;
@@ -36,9 +35,14 @@ public class PermissaoMB extends AbstractBaseBean<Permissao> implements Serializ
     public String getDataModelOrder() {
         return "descricao";
     }
-    
-    public void deleteArvore(){
-         try {
+
+    @Override
+    public List<Restriction> getDataModelRestrictions() {
+        return null;
+    }
+
+    public void deleteArvore() {
+        try {
             Object id = getId();
             if (getId() != null) {
                 getBO().delete(id);
@@ -52,11 +56,4 @@ public class PermissaoMB extends AbstractBaseBean<Permissao> implements Serializ
             FacesMessageUtils.error(XpertResourceBundle.get("objectCannotBeDeleted"));
         }
     }
-
-    @Override
-    public List<Restriction> getDataModelRestrictions() {
-        return null;
-    }
-    
-    
 }

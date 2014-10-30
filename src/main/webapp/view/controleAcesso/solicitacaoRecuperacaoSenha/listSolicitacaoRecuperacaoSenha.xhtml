@@ -67,7 +67,7 @@
                     <f:facet name="header">
                         <h:outputText value="#{xmsg['actions']}"/>
                     </f:facet>
-                    <p:commandButton oncomplete="widgetSolicitacaoRecuperacaoSenhaDetail.show();"  icon="ui-icon-zoomin" 
+                    <p:commandButton oncomplete="PF('widgetSolicitacaoRecuperacaoSenhaDetail').show();"  icon="ui-icon-zoomin" 
                                      process="@form" update=":formDetailSolicitacaoRecuperacaoSenha" title="#{xmsg['detail']}" >
                         <f:setPropertyActionListener value="#{solicitacaoRecuperacaoSenha}" target="#{solicitacaoRecuperacaoSenhaMB.entity}" />
                     </p:commandButton>
@@ -75,7 +75,7 @@
             </p:dataTable>
         </h:form>
 
-        <p:dialog widgetVar="widgetSolicitacaoRecuperacaoSenhaDetail" header="#{msg['solicitacaoRecuperacaoSenha.detail']}" appendToBody="true" modal="true" styleClass="uix-dialog-fluid">
+        <p:dialog widgetVar="widgetSolicitacaoRecuperacaoSenhaDetail" header="#{msg['solicitacaoRecuperacaoSenha.detail']}" appendTo="@(body)" modal="true" styleClass="uix-dialog-fluid">
             <ui:include src="detailSolicitacaoRecuperacaoSenha.xhtml" />
         </p:dialog>
     </ui:define>

@@ -110,7 +110,7 @@
         </p:accordionPanel>
         <p:separator/>
         <div style="text-align: center;">
-            <p:commandButton type="button" value="#{xmsg['close']}" onclick="widgetPermissaoDetail.hide()" />
+            <p:commandButton type="button" value="#{xmsg['close']}" onclick="PF('widgetPermissaoDetail').hide()" />
             <x:securityArea rolesAllowed="permissao.audit">
                 <x:audit for="#{permissaoMB.entity}"/>
             </x:securityArea>

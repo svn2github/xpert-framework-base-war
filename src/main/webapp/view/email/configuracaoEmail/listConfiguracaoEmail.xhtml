@@ -19,7 +19,7 @@
                          value="#{configuracaoEmailMB.dataModel}" lazy="true" >
                 <p:column styleClass="uix-datatable-index">
                     <f:facet name="header">
-                        <p:commandButton onclick="dataTableConfiguracaoEmailWidget.filter()" type="button" icon="ui-icon-refresh" />
+                        <p:commandButton onclick="PF('dataTableConfiguracaoEmailWidget').filter()" type="button" icon="ui-icon-refresh" />
                     </f:facet>
                     <h:outputText value="#{index+1}"/>
                 </p:column>
@@ -55,7 +55,7 @@
                     <f:facet name="header">
                          <h:outputText value="#{xmsg['actions']}"/>
                     </f:facet>
-                    <p:commandButton oncomplete="widgetConfiguracaoEmailDetail.show();"  icon="ui-icon-zoomin" 
+                    <p:commandButton oncomplete="PF('widgetConfiguracaoEmailDetail').show();"  icon="ui-icon-zoomin" 
                                      process="@form" update=":formDetailConfiguracaoEmail" title="#{xmsg['detail']}" >
                         <f:setPropertyActionListener value="#{configuracaoEmail}" target="#{configuracaoEmailMB.entity}" />
                     </p:commandButton>
@@ -80,7 +80,7 @@
             </p:dataTable>
         </h:form>
 
-        <p:dialog widgetVar="widgetConfiguracaoEmailDetail" header="#{msg['configuracaoEmail.detail']}" appendToBody="true" modal="true" styleClass="uix-dialog-fluid">
+        <p:dialog widgetVar="widgetConfiguracaoEmailDetail" header="#{msg['configuracaoEmail.detail']}" appendTo="@(body)" modal="true" styleClass="uix-dialog-fluid">
             <ui:include src="detailConfiguracaoEmail.xhtml" />
         </p:dialog>
     </ui:define>

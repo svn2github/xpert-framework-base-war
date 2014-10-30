@@ -17,7 +17,7 @@
                          value="#{pessoaExemploMB.dataModel}" lazy="true" >
                 <p:column styleClass="uix-datatable-index">
                     <f:facet name="header">
-                        <p:commandButton onclick="dataTablePessoaExemploWidget.filter()" type="button" icon="ui-icon-refresh" />
+                        <p:commandButton onclick="PF('dataTablePessoaExemploWidget').filter()" type="button" icon="ui-icon-refresh" />
                     </f:facet>
                     <h:outputText value="#{index+1}"/>
                 </p:column>
@@ -63,7 +63,7 @@
                     <f:facet name="header">
                         <h:outputText value="#{xmsg['actions']}"/>
                     </f:facet>
-                    <p:commandButton oncomplete="widgetPessoaExemploDetail.show();"  icon="ui-icon-zoomin" 
+                    <p:commandButton oncomplete="PF('widgetPessoaExemploDetail').show();"  icon="ui-icon-zoomin" 
                                      process="@form" update=":formDetailPessoaExemplo" title="#{xmsg['detail']}" >
                         <f:setPropertyActionListener value="#{pessoaExemplo}" target="#{pessoaExemploMB.entity}" />
                     </p:commandButton>
@@ -88,7 +88,7 @@
             </p:dataTable>
         </h:form>
 
-        <p:dialog widgetVar="widgetPessoaExemploDetail" header="#{msg['pessoaExemplo.detail']}" appendToBody="true"
+        <p:dialog widgetVar="widgetPessoaExemploDetail" header="#{msg['pessoaExemplo.detail']}" appendTo="@(body)"
                   modal="true" styleClass="uix-dialog-fluid" >
             <ui:include src="detailPessoaExemplo.xhtml" />
         </p:dialog>

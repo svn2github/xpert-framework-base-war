@@ -13,14 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.el.MethodExpression;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.component.menuitem.MenuItem;
-import org.primefaces.component.submenu.Submenu;
-import org.primefaces.model.DefaultMenuModel;
-import org.primefaces.model.MenuModel;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
+import org.primefaces.model.menu.MenuModel;
+import org.primefaces.model.menu.Submenu;
 
 /**
  * @ManagedBean que guarda o usuario logado e suas permissoess
@@ -55,14 +54,14 @@ public class SessaoUsuarioMB extends AbstractUserSession implements Serializable
     public void criarMenu() {
         menuModel = new DefaultMenuModel();
         //home
-        MenuItem item = new MenuItem();
+        DefaultMenuItem item = new DefaultMenuItem();
         item.setValue(I18N.get("menu.home"));
         item.setIcon("ui-icon-home");
         item.setUrl("/view/home.jsf");
-        menuModel.addMenuItem(item);
+        menuModel.addElement(item);
 
 
-        Map<Permissao, Submenu> subMenuMap = new HashMap<Permissao, Submenu>();
+        Map<Permissao, DefaultSubMenu> subMenuMap = new HashMap<Permissao, DefaultSubMenu>();
         //urls dinamicas
         List<Permissao> permissoes = getRoles();
         if (permissoes != null && !permissoes.isEmpty()) {
@@ -85,14 +84,14 @@ public class SessaoUsuarioMB extends AbstractUserSession implements Serializable
                                 submenu = subMenuMap.get(permissao.getPermissaoPai());
                             }
                         }
-                        item = new MenuItem();
+                        item = new DefaultMenuItem();
                         item.setValue(permissao.getNomeMenuVerificado());
                         item.setUrl(permissao.getUrlMenuVerificado());
                         //adicionar ao submenu quando encontrado, senao adicionar ao root
                         if (submenu != null) {
-                            submenu.getChildren().add(item);
+                            submenu.getElements().add(item);
                         } else {
-                            menuModel.addMenuItem(item);
+                            menuModel.addElement(item);
                         }
                     }
                 }
@@ -100,22 +99,22 @@ public class SessaoUsuarioMB extends AbstractUserSession implements Serializable
         }
 
         //sair
-        item = new MenuItem();
+        item = new DefaultMenuItem();
         item.setValue(I18N.get("menu.sair"));
         item.setIcon("ui-icon-close");
-        item.setActionExpression(getMethodExpressionSair());
-        menuModel.addMenuItem(item);
+        item.setCommand("#{loginMB.logout}");
+        menuModel.addElement(item);
     }
 
-    public void putSubmenu(Permissao permissao, Map<Permissao, Submenu> subMenuMap, MenuModel menuModel) {
+    public void putSubmenu(Permissao permissao, Map<Permissao, DefaultSubMenu> subMenuMap, MenuModel menuModel) {
         if (permissao != null) {
             if (permissao.isPossuiMenu()) {
                 String url = permissao.getUrlMenuVerificado();
                 if (url == null || url.trim().isEmpty()) {
-                    Submenu submenu = subMenuMap.get(permissao);
+                    DefaultSubMenu submenu = subMenuMap.get(permissao);
                     //caso a permissao tenha pai deve ser adicionado um submenu desse pai quando nao encontrado
                     if (submenu == null) {
-                        submenu = new Submenu();
+                        submenu = new DefaultSubMenu();
                         submenu.setLabel(permissao.getNomeMenuVerificado());
                         subMenuMap.put(permissao, submenu);
                         Submenu pai = null;
@@ -126,10 +125,10 @@ public class SessaoUsuarioMB extends AbstractUserSession implements Serializable
                         }
                         //setar submenupai
                         if (pai != null) {
-                            pai.getChildren().add(submenu);
+                            pai.getElements().add(submenu);
                         } else {
                             //adicionar ao root
-                            menuModel.addSubmenu(submenu);
+                            menuModel.addElement(submenu);
                         }
                     }
                 }
@@ -146,10 +145,6 @@ public class SessaoUsuarioMB extends AbstractUserSession implements Serializable
         return permissaoBO.pesquisarPermissao(query, roles);
     }
 
-    private MethodExpression getMethodExpressionSair() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        return facesContext.getApplication().getExpressionFactory().createMethodExpression(facesContext.getELContext(), "#{loginMB.logout}", null, new Class[0]);
-    }
 
     public MenuModel getMenuModel() {
         return menuModel;

@@ -37,7 +37,7 @@
 
         </p:fieldset>
         <div class="text-center">
-            <p:commandButton type="button" value="#{xmsg['close']}" onclick="widgetModeloEmailDetail.hide()" />
+            <p:commandButton type="button" value="#{xmsg['close']}" onclick="PF('widgetModeloEmailDetail').hide()" />
             <x:securityArea rolesAllowed="modeloEmail.audit">
                 <x:audit for="#{modeloEmailMB.entity}"/>
             </x:securityArea>

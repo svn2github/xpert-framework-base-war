@@ -103,7 +103,7 @@
             </p:tab>
         </p:accordionPanel>
         <div style="text-align: center;">
-            <p:commandButton type="button" value="#{xmsg['close']}" onclick="widgetUsuarioDetail.hide()" />
+            <p:commandButton type="button" value="#{xmsg['close']}" onclick="PF('widgetUsuarioDetail').hide()" />
             <x:securityArea rolesAllowed="usuario.audit">
                 <x:audit for="#{usuarioMB.entity}"/>
             </x:securityArea>

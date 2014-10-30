@@ -100,9 +100,9 @@ public class PermissaoBO extends AbstractBusinessObject<Permissao> {
                 }
                 node.setExpanded(false);
                 if (parent != null) {
-                    node.setParent(parent);
+                    parent.getChildren().add(node);
                 } else {
-                    node.setParent(root);
+                    root.getChildren().add(node);
                 }
             }
         }

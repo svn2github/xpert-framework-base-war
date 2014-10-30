@@ -95,3 +95,4 @@ section.conteudo h1.page-header  span{vertical-align: middle;}
     .login-wraper {margin: 10% auto;}
 }
 .ui-dialog.ui-widget-content .ui-dialog-title{font-size: 18px;}
+.ui-datatable table{ table-layout: auto; }

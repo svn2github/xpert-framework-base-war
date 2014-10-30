@@ -36,7 +36,7 @@
                     <f:facet name="header">
                          <h:outputText value="#{xmsg['actions']}"/>
                     </f:facet>
-                    <p:commandButton oncomplete="widgetPerfilDetail.show();"  
+                    <p:commandButton oncomplete="PF('widgetPerfilDetail').show();"  
                                      action="#{perfilMB.detail}"
                                      icon="ui-icon-zoomin" process="@form" update=":formDetailPerfil" >
                         <f:setPropertyActionListener value="#{perfil}" target="#{perfilMB.entity}" />
@@ -61,7 +61,7 @@
             </p:dataTable>
         </h:form>
 
-        <p:dialog widgetVar="widgetPerfilDetail" header="#{msg['perfil.detail']}" appendToBody="true" modal="true" styleClass="uix-dialog-fluid">
+        <p:dialog widgetVar="widgetPerfilDetail" header="#{msg['perfil.detail']}" appendTo="@(body)" modal="true" styleClass="uix-dialog-fluid">
             <ui:include src="detailPerfil.xhtml" />
         </p:dialog>
     </ui:define>

@@ -53,7 +53,7 @@
                             <f:facet name="header">
                                   <h:outputText value="#{xmsg['actions']}"/>
                             </f:facet>
-                            <p:commandButton oncomplete="widgetPermissaoDetail.show();"  icon="ui-icon-zoomin" process="@form" update=":formDetailPermissao" >
+                            <p:commandButton oncomplete="PF('widgetPermissaoDetail').show();"  icon="ui-icon-zoomin" process="@form" update=":formDetailPermissao" >
                                 <f:setPropertyActionListener value="#{permissao}" target="#{permissaoMB.entity}" />
                             </p:commandButton>
                             <x:securityArea rolesAllowed="permissao.create">
@@ -81,7 +81,7 @@
                             <h:outputText value="#{permissao.descricao}"  style="font-size: 12px;" />  
                             <p:spacer width="5"/>
                             <h:panelGroup style="font-size: 10px;">
-                                <p:commandButton oncomplete="widgetPermissaoDetail.show();"  icon="ui-icon-zoomin" process="@this" update=":formDetailPermissao"
+                                <p:commandButton oncomplete="PF('widgetPermissaoDetail').show();"  icon="ui-icon-zoomin" process="@this" update=":formDetailPermissao"
                                                  >
                                     <f:setPropertyActionListener target="#{permissaoMB.entity}" value="#{permissao}"/>
                                 </p:commandButton>
@@ -109,7 +109,7 @@
 
         </h:form>
 
-        <p:dialog widgetVar="widgetPermissaoDetail" header="#{msg['permissao.detail']}" appendToBody="true" modal="true" styleClass="uix-dialog-fluid">
+        <p:dialog widgetVar="widgetPermissaoDetail" header="#{msg['permissao.detail']}" appendTo="@(body)" modal="true" styleClass="uix-dialog-fluid">
             <ui:include src="detailPermissao.xhtml" />
         </p:dialog>
     </ui:define>

@@ -60,7 +60,7 @@
                     <f:facet name="header">
                         <h:outputText value="#{xmsg['actions']}"/>
                     </f:facet>
-                    <p:commandButton oncomplete="widgetUsuarioDetail.show();"  icon="ui-icon-zoomin" process="@form" update=":formDetailUsuario" >
+                    <p:commandButton oncomplete="PF('widgetUsuarioDetail').show();"  icon="ui-icon-zoomin" process="@form" update=":formDetailUsuario" >
                         <f:setPropertyActionListener value="#{usuario}" target="#{usuarioMB.entity}" />
                     </p:commandButton>
                     <x:securityArea rolesAllowed="usuario.create">
@@ -83,7 +83,7 @@
             </p:dataTable>
         </h:form>
 
-        <p:dialog widgetVar="widgetUsuarioDetail" header="#{msg['usuario.detail']}" appendToBody="true" modal="true" styleClass="uix-dialog-fluid">
+        <p:dialog widgetVar="widgetUsuarioDetail" header="#{msg['usuario.detail']}" appendTo="@(body)" modal="true" styleClass="uix-dialog-fluid">
             <ui:include src="detailUsuario.xhtml" />
         </p:dialog>
     </ui:define>
