@@ -5,7 +5,7 @@
 
     <groupId>com.xpert.base</groupId>
     <artifactId>xpert-framework-base</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>xpert-framework-base</name>
