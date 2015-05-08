@@ -11,4 +11,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class HistoricoSituacaoUsuarioDAOImpl extends BaseDAOImpl<HistoricoSituacaoUsuario> implements HistoricoSituacaoUsuarioDAO {
+
+    @Override
+    public Class getEntityClass() {
+        return HistoricoSituacaoUsuario.class;
+    }
 }

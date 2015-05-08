@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <h:outputLabel value="#{msg['pessoaExemplo.horario']}:" styleClass="control-label" /><br/>
-                    <h:outputText value="#{pessoaExemplo.horario}" styleClass="uix-content-detail">
+                    <h:outputText value="#{pessoaExemploMB.entity.horario}" styleClass="uix-content-detail">
                         <f:convertDateTime pattern="HH:mm"/>
                     </h:outputText>
                 </div>

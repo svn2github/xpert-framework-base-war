@@ -37,10 +37,10 @@ public class PermissaoBO extends AbstractBusinessObject<Permissao> {
     }
 
     public TreeNode getTreeNodeMenu(Perfil perfil) {
-        List<Permissao> permissoesPerfil = permissaoDAO.getPermissoesComFilhos(perfil);
+        List<Permissao> permissoesPerfil = permissaoDAO.getPermissoes(perfil);
         List<Permissao> permissoesMenu = null;
         if (perfil != null && perfil.getId() != null) {
-            permissoesMenu = permissaoDAO.getPermissoesMenuComFilhos(perfil);
+            permissoesMenu = permissaoDAO.getPermissoesMenu(perfil);
         }
         return getTreeNode(permissoesPerfil, permissoesMenu);
     }
@@ -49,12 +49,12 @@ public class PermissaoBO extends AbstractBusinessObject<Permissao> {
         List<Permissao> todasPermissoes = permissaoDAO.listAll("descricao");
         List<Permissao> permissoesPerfil = null;
         if (perfil != null && perfil.getId() != null) {
-            permissoesPerfil = permissaoDAO.getPermissoesComFilhos(perfil);
+            permissoesPerfil = permissaoDAO.getPermissoes(perfil);
         }
         return getTreeNode(todasPermissoes, permissoesPerfil);
     }
 
-   public void adicionarPermissaoAoMap(TreeNode root, Permissao permissao, Map<Permissao, TreeNode> nodeMap,
+    public void adicionarPermissaoAoMap(TreeNode root, Permissao permissao, Map<Permissao, TreeNode> nodeMap,
             List<Permissao> permissoes, List<Permissao> permissoesParaSelecionar, boolean selectable) {
         TreeNode node = new DefaultTreeNode(permissao, root);
         node.setExpanded(true);
@@ -65,7 +65,7 @@ public class PermissaoBO extends AbstractBusinessObject<Permissao> {
         nodeMap.put(permissao, node);
         if (permissao.getPermissaoPai() != null) {
             Permissao permissaoPai = permissaoDAO.getInitialized(permissao.getPermissaoPai());
-            if (!permissoes.contains(permissaoPai) &&  nodeMap.get(permissaoPai) == null) {
+            if (!permissoes.contains(permissaoPai) && nodeMap.get(permissaoPai) == null) {
                 adicionarPermissaoAoMap(root, permissaoPai, nodeMap, permissoes, permissoesParaSelecionar, false);
             }
         }
@@ -86,7 +86,7 @@ public class PermissaoBO extends AbstractBusinessObject<Permissao> {
 
         //criar nó para cada permissao
         for (Permissao permissao : permissoes) {
-           adicionarPermissaoAoMap(root, permissao, nodeMap, permissoes, permissoesParaSelecionar, true);
+            adicionarPermissaoAoMap(root, permissao, nodeMap, permissoes, permissoesParaSelecionar, true);
         }
         for (Map.Entry<Permissao, TreeNode> entry : nodeMap.entrySet()) {
 
@@ -122,9 +122,9 @@ public class PermissaoBO extends AbstractBusinessObject<Permissao> {
         List<Permissao> permissoes = new ArrayList<Permissao>();
         if (usuario != null) {
             if (usuario.isSuperUsuario()) {
-                permissoes = permissaoDAO.getTodasPermissoesComFilhos();
+                permissoes = permissaoDAO.getTodasPermissoes();
             } else {
-                permissoes = permissaoDAO.getPermissoesComFilhos(usuario);
+                permissoes = permissaoDAO.getPermissoes(usuario);
             }
         }
         permissoes = getChildren(permissoes);
@@ -132,7 +132,7 @@ public class PermissaoBO extends AbstractBusinessObject<Permissao> {
     }
 
     private List<Permissao> getChildren(List<Permissao> permissoes) {
-         List<Permissao> permissoesAdd = new ArrayList<Permissao>();
+        List<Permissao> permissoesAdd = new ArrayList<Permissao>();
         if (permissoes != null) {
             for (Permissao permissao : permissoes) {
                 if (!permissoesAdd.contains(permissao)) {
@@ -164,14 +164,11 @@ public class PermissaoBO extends AbstractBusinessObject<Permissao> {
 
     @Override
     public void validate(Permissao permissao) throws BusinessException {
-    }
-
-    public Integer getNivel(Permissao permissao) {
-        Integer nivel = 0;
-        if (permissao.getPermissaoPai() != null) {
-            nivel = getNivel(permissao.getPermissaoPai()) + 1;
+        if (permissao.getId() != null && permissao.getPermissaoPai() != null) {
+            if (permissao.getId().equals(permissao.getPermissaoPai().getId())) {
+                throw new BusinessException("business.permissaoNaoPodePaiDelaMesma");
+            }
         }
-        return nivel;
     }
 
     @Override

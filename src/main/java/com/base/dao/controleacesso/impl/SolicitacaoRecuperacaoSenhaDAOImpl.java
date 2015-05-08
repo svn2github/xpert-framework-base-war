@@ -11,4 +11,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class SolicitacaoRecuperacaoSenhaDAOImpl extends BaseDAOImpl<SolicitacaoRecuperacaoSenha> implements SolicitacaoRecuperacaoSenhaDAO {
+
+    @Override
+    public Class getEntityClass() {
+        return SolicitacaoRecuperacaoSenha.class;
+    }
 }

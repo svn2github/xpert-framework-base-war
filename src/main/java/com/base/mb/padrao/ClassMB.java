@@ -1,5 +1,6 @@
 package com.base.mb.padrao;
 
+import com.base.modelo.exemplo.PessoaExemplo;
 import com.base.modelo.controleacesso.Permissao;
 import com.base.modelo.controleacesso.Usuario;
 import com.base.modelo.configuracao.ErroSistema;
@@ -64,4 +65,8 @@ public class ClassMB {
     public Class getConfiguracaoEmail() {
         return ConfiguracaoEmail.class;
     }
+    public Class getPessoaExemplo() {
+        return PessoaExemplo.class;
+    }
+
 }

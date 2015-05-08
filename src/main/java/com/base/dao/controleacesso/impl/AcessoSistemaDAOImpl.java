@@ -11,4 +11,11 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AcessoSistemaDAOImpl extends BaseDAOImpl<AcessoSistema> implements AcessoSistemaDAO {
+
+    @Override
+    public Class getEntityClass() {
+        return AcessoSistema.class;
+    }
+    
+    
 }

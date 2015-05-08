@@ -10,54 +10,73 @@
         <ui:include src="menuPessoaExemplo.xhtml" />
         <h:form id="formListPessoaExemplo">
             <x:modalMessages/>
+
+            <x:dataTableActions fileName="pessoaExemplo_export" target=":formListPessoaExemplo:dataTablePessoaExemplo"
+                                     widgetVar="dataTablePessoaExemploWidget"  />
+
             <p:dataTable paginator="true" rows="10" rowsPerPageTemplate="10,20,30" paginatorPosition="bottom" emptyMessage="#{xmsg['noRecordFound']}"
                          var="pessoaExemplo" rowIndexVar="index" id="dataTablePessoaExemplo" widgetVar="dataTablePessoaExemploWidget" styleClass="table-responsive"
                          currentPageReportTemplate="#{pessoaExemploMB.dataModel.currentPageReportTemplate}"
                          paginatorTemplate="#{pessoaExemploMB.dataModel.paginatorTemplate}"
                          value="#{pessoaExemploMB.dataModel}" lazy="true" >
                 <p:column styleClass="uix-datatable-index">
-                    <f:facet name="header">
-                        <p:commandButton onclick="PF('dataTablePessoaExemploWidget').filter()" type="button" icon="ui-icon-refresh" />
-                    </f:facet>
                     <h:outputText value="#{index+1}"/>
                 </p:column>
                 <p:column headerText="#{msg['pessoaExemplo.nome']}" sortBy="#{pessoaExemplo.nome}"
-                          filterBy="#{pessoaExemplo.nome}"   >
-                        <h:outputText value="#{pessoaExemplo.nome}"/>
+                    filterBy="#{pessoaExemplo.nome}"   >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['pessoaExemplo.nome']}" />
+                    </f:facet>
+                    <h:outputText value="#{pessoaExemplo.nome}"/>
                 </p:column>
                 <p:column headerText="#{msg['pessoaExemplo.email']}" sortBy="#{pessoaExemplo.email}"
-                          filterBy="#{pessoaExemplo.email}"   >
-                        <h:outputText value="#{pessoaExemplo.email}"/>
+                    filterBy="#{pessoaExemplo.email}"   >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['pessoaExemplo.email']}" />
+                    </f:facet>
+                    <h:outputText value="#{pessoaExemplo.email}"/>
                 </p:column>
                 <p:column headerText="#{msg['pessoaExemplo.salary']}" sortBy="#{pessoaExemplo.salary}"
-                             style="text-align: right;">
-                        <h:outputText value="#{pessoaExemplo.salary}">
-                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
-                        </h:outputText>
+                       style="text-align: right;">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['pessoaExemplo.salary']}" />
+                    </f:facet>
+                    <h:outputText value="#{pessoaExemplo.salary}">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="#{msg['pessoaExemplo.dataNascimento']}" sortBy="#{pessoaExemplo.dataNascimento}"
-                          filterBy="#{pessoaExemplo.dataNascimento}"   style="text-align: center;">
-                        <f:facet name="header">
-                            #{msg['pessoaExemplo.dataNascimento']}
-                            <x:dateFilter/>
-                        </f:facet>
-                        <h:outputText value="#{pessoaExemplo.dataNascimento}">
-                            <f:convertDateTime />
-                        </h:outputText>
+                    filterBy="#{pessoaExemplo.dataNascimento}"   style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['pessoaExemplo.dataNascimento']}" />
+                        <x:dateFilter/>
+                    </f:facet>
+                    <h:outputText value="#{pessoaExemplo.dataNascimento}">
+                        <f:convertDateTime />
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="#{msg['pessoaExemplo.horario']}" sortBy="#{pessoaExemplo.horario}"
-                             style="text-align: center;">
-                        <h:outputText value="#{pessoaExemplo.horario}">
-                            <f:convertDateTime pattern="HH:mm"/>
-                        </h:outputText>
+                       style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['pessoaExemplo.horario']}" />
+                    </f:facet>
+                    <h:outputText value="#{pessoaExemplo.horario}">
+                        <f:convertDateTime pattern="HH:mm"/>
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="#{msg['pessoaExemplo.rg']}" sortBy="#{pessoaExemplo.rg}"
-                          filterBy="#{pessoaExemplo.rg}"   >
-                        <h:outputText value="#{pessoaExemplo.rg}"/>
+                    filterBy="#{pessoaExemplo.rg}"   >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['pessoaExemplo.rg']}" />
+                    </f:facet>
+                    <h:outputText value="#{pessoaExemplo.rg}"/>
                 </p:column>
                 <p:column headerText="#{msg['pessoaExemplo.active']}" sortBy="#{pessoaExemplo.active}"
-                          filterBy="#{pessoaExemplo.active}" filterOptions="#{booleanSelectItensEmptyOption}"  style="text-align: center;">
-                        <h:outputText value="#{pessoaExemplo.active}" converter ="yesNoConverter" />
+                    filterBy="#{pessoaExemplo.active}" filterOptions="#{booleanSelectItensEmptyOption}"  style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['pessoaExemplo.active']}" />
+                    </f:facet>
+                    <h:outputText value="#{pessoaExemplo.active}" converter ="yesNoConverter" />
                 </p:column>
                 <p:column styleClass="uix-datatable-actions" exportable="false" headerText="#{xmsg['actions']}">
                     <f:facet name="header">
@@ -80,17 +99,17 @@
                         </p:commandButton>
                     </x:securityArea>
                 </p:column>
-                <f:facet name="footer">
-                    <x:securityArea rolesAllowed="pessoaExemplo.audit">
-                        <x:auditDelete for="#{pessoaExemploMB.entityClass}"/>
-                    </x:securityArea>
-                </f:facet>
             </p:dataTable>
+            <div class="uix-audit-delete">
+                <x:securityArea rolesAllowed="pessoaExemplo.audit">
+                    <x:auditDelete for="#{pessoaExemploMB.entityClass}"/>
+                </x:securityArea>
+            </div>  
         </h:form>
 
-        <p:dialog widgetVar="widgetPessoaExemploDetail" header="#{msg['pessoaExemplo.detail']}" appendTo="@(body)"
+        <p:dialog widgetVar="widgetPessoaExemploDetail" header="#{msg['pessoaExemplo.detail']}" appendTo="@(body)" 
                   modal="true" styleClass="uix-dialog-fluid" >
-            <ui:include src="detailPessoaExemplo.xhtml" />
+                  <ui:include src="detailPessoaExemplo.xhtml" />
         </p:dialog>
     </ui:define>
 </ui:composition>

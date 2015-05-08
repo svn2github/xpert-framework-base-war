@@ -22,11 +22,32 @@
                     </div>
                     <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12">
                         <h:outputLabel value="#{msg['permissao.permissaoPai']}:" />
-                        <h:selectOneMenu value="#{permissaoMB.entity.permissaoPai}" converter="entityConverter" styleClass="form-control">
-                            <x:initializer/>
-                            <f:selectItem itemLabel="#{xmsg['select']}" />
-                            <f:selectItems value="#{findAllBean.get(classMB.permissao)}" var="permissao" itemLabel="#{permissao.descricao} - #{permissao.key}" />
-                        </h:selectOneMenu>
+
+                        <h:panelGroup layout="block" id="panelPermissaoPai" styleClass="form-control">
+                            <h:panelGroup id="conteudoPanelPermissaoPai" >
+                                <h:outputText value="#{permissaoMB.entity.permissaoPai.descricao} - #{permissaoMB.entity.permissaoPai.key}" >
+                                    <x:initializer/>
+                                </h:outputText>
+                                <p:commandButton type="button" icon="ui-icon-carat-1-s" 
+                                                 id="buttonPermissaoPai" styleClass="pull-right"
+                                                 style="font-size: 10px;"/>
+                            </h:panelGroup>
+                        </h:panelGroup>
+
+                        <p:overlayPanel for="panelPermissaoPai" styleClass="w-100p" widgetVar="overlayPermissaoPai" >
+                            <p:tree value="#{perfilMB.permissoes}" var="permissao" styleClass="w-100p"
+                                    selectionMode="single"  style="max-height: 400px; overflow-y: scroll" >
+                                <p:ajax event="select" update=":formCreatePermissao:conteudoPanelPermissaoPai @this"
+                                        listener="#{permissaoMB.entity.setPermissaoPai(permissao)}" oncomplete="PF('overlayPermissaoPai').hide()" />
+                                <p:treeNode collapsedIcon="ui-icon-folder-collapsed" >
+                                    <h:panelGroup styleClass="#{permissao == permissaoMB.entity.permissaoPai ? 'ui-state-highlight' : ''}">
+                                        <h:outputText value="#{permissao.descricao}" style="font-weight: bold"/>  
+                                        <h:outputText value=" (#{permissao.key})" styleClass="font-11"  /> 
+                                    </h:panelGroup>
+                                </p:treeNode>
+                            </p:tree>
+                        </p:overlayPanel>
+
                     </div>
                 </div>
                 <div class="row">

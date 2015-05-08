@@ -17,7 +17,7 @@
                 <p:tab title="#{msg['permissao.verNaTabela']}">
                     <p:dataTable paginator="true" rows="10" rowsPerPageTemplate="10,20,30" paginatorPosition="bottom" emptyMessage="#{xmsg['noRecordFound']}"
                                  var="permissao" value="#{permissaoMB.dataModel}" lazy="true"
-                                 styleClass="table-responsive"
+                                 styleClass="table-responsive" 
                                  currentPageReportTemplate="#{permissaoMB.dataModel.currentPageReportTemplate}"
                                  paginatorTemplate="#{permissaoMB.dataModel.paginatorTemplate}"
                                  rowIndexVar="index" widgetVar="widgetDataTablePerfil">
@@ -41,17 +41,17 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{msg['permissao.possuiMenu']}" sortBy="#{permissao.possuiMenu}" 
-                                   filterBy="#{permissao.possuiMenu}" filterOptions="#{booleanSelectItensEmptyOption}" style="text-align: center;">
+                                  filterBy="#{permissao.possuiMenu}" filterOptions="#{booleanSelectItensEmptyOption}" styleClass="text-center">
                             <h:outputText value="#{permissao.possuiMenu}" converter="yesNoConverter"/>
                         </p:column>
                         <p:column headerText="#{msg['permissao.global']}" sortBy="#{permissao.global}"
                                   filterBy="#{permissao.global}" filterOptions="#{booleanSelectItensEmptyOption}"
-                                  style="text-align: center;">
+                                  styleClass="text-center">
                             <h:outputText value="#{permissao.global}" converter="yesNoConverter"/>
                         </p:column>
                         <p:column styleClass="uix-datatable-actions">
                             <f:facet name="header">
-                                  <h:outputText value="#{xmsg['actions']}"/>
+                                <h:outputText value="#{xmsg['actions']}"/>
                             </f:facet>
                             <p:commandButton oncomplete="PF('widgetPermissaoDetail').show();"  icon="ui-icon-zoomin" process="@form" update=":formDetailPermissao" >
                                 <f:setPropertyActionListener value="#{permissao}" target="#{permissaoMB.entity}" />
@@ -68,12 +68,12 @@
                                 </p:commandButton>
                             </x:securityArea>
                         </p:column>
-                        <f:facet name="footer">
-                            <x:securityArea rolesAllowed="permissao.audit">
-                                <x:auditDelete for="#{classMB.permissao}"/>
-                            </x:securityArea>
-                        </f:facet>
                     </p:dataTable>
+                    <div class="uix-audit-delete">
+                        <x:securityArea rolesAllowed="permissao.audit">
+                            <x:auditDelete for="#{classMB.permissao}"/>
+                        </x:securityArea>
+                    </div>
                 </p:tab>
                 <p:tab title="#{msg['permissao.verNaArvore']}">
                     <p:treeTable value="#{perfilMB.permissoes}" var="permissao">  

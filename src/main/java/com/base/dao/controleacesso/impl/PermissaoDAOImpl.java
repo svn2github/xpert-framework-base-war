@@ -17,11 +17,15 @@ import javax.persistence.Query;
 public class PermissaoDAOImpl extends BaseDAOImpl<Permissao> implements PermissaoDAO {
 
     @Override
-    public List<Permissao> getTodasPermissoesComFilhos() {
+    public Class getEntityClass() {
+        return Permissao.class;
+    }
+    
+    @Override
+    public List<Permissao> getTodasPermissoes() {
         StringBuilder builder = new StringBuilder();
         //trazer todas permissoes
         builder.append("SELECT DISTINCT p FROM ").append(Permissao.class.getName()).append(" p ");
-        builder.append("LEFT JOIN FETCH p.permissaoPai LEFT JOIN FETCH p.permissoesFilhas ");
         builder.append("ORDER BY p.descricao ");
         Query query = getEntityManager().createQuery(builder.toString());
 
@@ -29,12 +33,11 @@ public class PermissaoDAOImpl extends BaseDAOImpl<Permissao> implements Permissa
     }
 
     @Override
-    public List<Permissao> getPermissoesComFilhos(Usuario usuario) {
+    public List<Permissao> getPermissoes(Usuario usuario) {
         StringBuilder builder = new StringBuilder();
 
         builder.append("SELECT DISTINCT p FROM ").append(Usuario.class.getName()).append(" u ");
         builder.append("LEFT JOIN u.perfis pe INNER JOIN pe.permissoes p ");
-        builder.append("LEFT JOIN FETCH p.permissaoPai LEFT JOIN FETCH p.permissoesFilhas ");
         builder.append("WHERE u = :usuario or p.global = true ");
         builder.append("ORDER BY p.descricao ");
 
@@ -45,15 +48,15 @@ public class PermissaoDAOImpl extends BaseDAOImpl<Permissao> implements Permissa
     }
 
     @Override
-    public List<Permissao> getPermissoesComFilhos(Perfil perfil) {
+    public List<Permissao> getPermissoes(Perfil perfil) {
         StringBuilder builder = new StringBuilder();
 
         if (perfil == null) {
             builder.append("SELECT DISTINCT p FROM ").append(Permissao.class.getName()).append(" p ");
-            builder.append("LEFT JOIN FETCH p.permissaoPai LEFT JOIN FETCH p.permissoesFilhas ORDER BY p.descricao ");
+            builder.append("LEFT JOIN FETCH p.permissaoPai ORDER BY p.descricao ");
         } else {
             builder.append("SELECT DISTINCT p FROM ").append(Perfil.class.getName()).append(" pu ");
-            builder.append("JOIN pu.permissoes p LEFT JOIN FETCH p.permissaoPai LEFT JOIN FETCH p.permissoesFilhas WHERE pu = :perfil ORDER BY p.descricao ");
+            builder.append("JOIN pu.permissoes p LEFT JOIN FETCH p.permissaoPai WHERE pu = :perfil ORDER BY p.descricao ");
         }
 
         Query query = getEntityManager().createQuery(builder.toString());
@@ -65,11 +68,11 @@ public class PermissaoDAOImpl extends BaseDAOImpl<Permissao> implements Permissa
     }
     
      @Override
-    public List<Permissao> getPermissoesMenuComFilhos(Perfil perfil) {
+    public List<Permissao> getPermissoesMenu(Perfil perfil) {
        
         StringBuilder builder = new StringBuilder();
         builder.append("SELECT DISTINCT p FROM ").append(Perfil.class.getName()).append(" pu ");
-        builder.append("JOIN pu.permissoesAtalho p LEFT JOIN FETCH p.permissaoPai LEFT JOIN FETCH p.permissoesFilhas WHERE pu = :perfil ORDER BY p.descricao ");
+        builder.append("JOIN pu.permissoesAtalho p LEFT JOIN FETCH p.permissaoPai WHERE pu = :perfil ORDER BY p.descricao ");
 
         Query query = getEntityManager().createQuery(builder.toString());
         if (perfil != null) {

@@ -35,16 +35,17 @@ public class GeracaoModeloEmail {
             configuracaoEmail = new ConfiguracaoEmail();
             configuracaoEmail.setNome("Sistema Base");
             configuracaoEmail.setEmail("xpert.testes@gmail.com");
+            configuracaoEmail.setUsuario("xpert.testes@gmail.com");
             configuracaoEmail.setSenha("xpert12345");
             configuracaoEmail.setHostName("smtp.gmail.com");
             configuracaoEmail.setSsl(true);
             configuracaoEmail.setTls(true);
-            configuracaoEmail.setSmptPort(465);
+            configuracaoEmail.setSmtpPort(465);
             configuracaoEmail = getDAO(ConfiguracaoEmail.class).merge(configuracaoEmail, false);
         }
 
-        salvarModeloEmail("[Xpert-framework - Base] Cadastro de Usuario", TipoAssuntoEmail.NOVO_USUARIO_SISTEMA, configuracaoEmail);
-        salvarModeloEmail("[Xpert-framework - Base] Recuperacao de Senha", TipoAssuntoEmail.RECUPERACAO_SENHA, configuracaoEmail);
+        salvarModeloEmail("[xpert-framework-base] Cadastro de Usuario", TipoAssuntoEmail.NOVO_USUARIO_SISTEMA, configuracaoEmail);
+        salvarModeloEmail("[xpert-framework-base] Recuperacao de Senha", TipoAssuntoEmail.RECUPERACAO_SENHA, configuracaoEmail);
     }
 
     public void salvarModeloEmail(String assunto, TipoAssuntoEmail tipoAssuntoEmail, ConfiguracaoEmail configuracaoEmail) {

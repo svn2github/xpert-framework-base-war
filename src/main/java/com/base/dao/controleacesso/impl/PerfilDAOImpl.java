@@ -14,8 +14,13 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PerfilDAOImpl extends BaseDAOImpl<Perfil> implements PerfilDAO {
-    
-     @Override
+
+    @Override
+    public Class getEntityClass() {
+        return Perfil.class;
+    }
+
+    @Override
     public List<Perfil> getPerfis(Usuario usuario) {
 
         String queryString = "SELECT perfis FROM " + Usuario.class.getName() + " u WHERE u =?1 ";

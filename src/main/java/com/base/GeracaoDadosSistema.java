@@ -59,17 +59,17 @@ public class GeracaoDadosSistema {
             //adicionar todas as permissoes para o admin
             perfil.setPermissoes(getDAO(Permissao.class).listAll());
             if (perfil.getId() == null) {
-                BaseDAO permissaoDAO = getDAO(Permissao.class);
+                BaseDAO<Permissao> permissaoDAO = getDAO(Permissao.class);
                 List<Permissao> atalhos = new ArrayList<Permissao>();
-                atalhos.add((Permissao) permissaoDAO.unique("key", "usuario.list"));
-                atalhos.add((Permissao) permissaoDAO.unique("key", "usuario.create"));
-                atalhos.add((Permissao) permissaoDAO.unique("key", "acessoSistema.list"));
-                atalhos.add((Permissao) permissaoDAO.unique("key", "usuario.alterarSenha"));
-                atalhos.add((Permissao) permissaoDAO.unique("key", "erroSistema.list"));
-                atalhos.add((Permissao) permissaoDAO.unique("key", "perfil.list"));
+                atalhos.add(permissaoDAO.unique("key", "usuario.list"));
+                atalhos.add(permissaoDAO.unique("key", "usuario.create"));
+                atalhos.add(permissaoDAO.unique("key", "acessoSistema.list"));
+                atalhos.add(permissaoDAO.unique("key", "usuario.alterarSenha"));
+                atalhos.add(permissaoDAO.unique("key", "erroSistema.list"));
+                atalhos.add(permissaoDAO.unique("key", "perfil.list"));
                 perfil.setPermissoesAtalho(atalhos);
             }
-            perfil = getDAO(Perfil.class).merge(perfil, false);
+            getDAO(Perfil.class).saveOrMerge(perfil, false);
 
 
             Usuario usuario = getDAO(Usuario.class).unique("userLogin", "ADMIN");
@@ -94,14 +94,14 @@ public class GeracaoDadosSistema {
                     throw new RuntimeException(ex);
                 }
                 usuario.setSuperUsuario(true);
-                usuario = getDAO(Usuario.class).merge(usuario, false);
+                getDAO(Usuario.class).saveOrMerge(usuario, false);
 
                 //historico como ativo
                 HistoricoSituacaoUsuario historicoSituacaoUsuario = new HistoricoSituacaoUsuario();
                 historicoSituacaoUsuario.setDataSituacao(new Date());
                 historicoSituacaoUsuario.setSituacaoUsuario(SituacaoUsuario.ATIVO);
                 historicoSituacaoUsuario.setUsuario(usuario);
-                historicoSituacaoUsuario = getDAO(HistoricoSituacaoUsuario.class).merge(historicoSituacaoUsuario, false);
+                getDAO(HistoricoSituacaoUsuario.class).saveOrMerge(historicoSituacaoUsuario, false);
 
             }
 

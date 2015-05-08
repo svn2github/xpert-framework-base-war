@@ -85,7 +85,6 @@ public class EmailBO {
      * @param modeloEmail Modelo a ser usado de email
      * @param parametros Parametros para serem passados para o template
      * @param destinatario Email de destino da mensagem
-     * @throws BusinessException
      */
     @Asynchronous
     public void enviarAssincrono(ModeloEmail modeloEmail, Map<String, Object> parametros, String destinatario) {
@@ -103,7 +102,6 @@ public class EmailBO {
      * @param parametros Parametros para serem passados para o template
      * @param destinatario Email de destino da mensagem
      * @param anexos Anexos do email
-     * @throws BusinessException
      */
     @Asynchronous
     public void enviarAssincrono(ModeloEmail modeloEmail, Map<String, Object> parametros, String destinatario, List<Attachment> anexos) {
@@ -145,11 +143,11 @@ public class EmailBO {
      * Enviar email assincrono a partir dos parametros passados
      *
      * @param assunto Assunto do Email
-     * @param message Mensagem do Email
+     * @param mensagem Mensagem do Email
      * @param configuracaoEmail
      * @param destinatario Email de destino
-     * @throws BusinessException
      */
+    @Asynchronous
     public void enviarAssincrono(String assunto, String mensagem, ConfiguracaoEmail configuracaoEmail, String destinatario) {
         try {
             enviar(assunto, mensagem, configuracaoEmail, destinatario, null);
@@ -162,12 +160,12 @@ public class EmailBO {
      * Enviar email assincrono a partir dos parametros passados
      *
      * @param assunto Assunto do Email
-     * @param message Mensagem do Email
+     * @param mensagem Mensagem do Email
      * @param configuracaoEmail
      * @param destinatario Email de destino
      * @param anexos Anexos do email
-     * @throws BusinessException
      */
+    @Asynchronous
     public void enviarAssincrono(String assunto, String mensagem, ConfiguracaoEmail configuracaoEmail, String destinatario, List<Attachment> anexos) {
         try {
             enviar(assunto, mensagem, configuracaoEmail, destinatario, anexos);
@@ -180,7 +178,7 @@ public class EmailBO {
      * Enviar email a partir dos parametros passados
      *
      * @param assunto Assunto do Email
-     * @param message Mensagem do Email
+     * @param mensagem Mensagem do Email
      * @param configuracaoEmail
      * @param destinatario Email de destino
      * @throws BusinessException
@@ -193,7 +191,7 @@ public class EmailBO {
      * Enviar email a partir dos parametros passados
      *
      * @param assunto Assunto do Email
-     * @param message Mensagem do Email
+     * @param mensagem Mensagem do Email
      * @param configuracaoEmail
      * @param destinatario Email de destino
      * * @param anexos Anexos do email
@@ -222,8 +220,8 @@ public class EmailBO {
             email.setFrom(configuracaoEmail.getEmail(), configuracaoEmail.getEmail());
             email.setSubject(assunto);
             email.setHtmlMsg(mensagem);
-            email.setAuthentication(configuracaoEmail.getEmail(), configuracaoEmail.getSenha());
-            email.setSmtpPort(configuracaoEmail.getSmptPort());
+            email.setAuthentication(configuracaoEmail.getUsuario(), configuracaoEmail.getSenha());
+            email.setSmtpPort(configuracaoEmail.getSmtpPort());
             email.setSSL(configuracaoEmail.isSsl());
             email.setTLS(configuracaoEmail.isTls());
 

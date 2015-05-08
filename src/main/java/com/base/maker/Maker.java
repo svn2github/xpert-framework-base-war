@@ -1,5 +1,6 @@
 package com.base.maker;
 
+import com.base.mb.padrao.ClassMB;
 import com.xpert.faces.bootstrap.BootstrapVersion;
 import com.xpert.faces.primefaces.PrimeFacesVersion;
 import com.xpert.maker.MakerSwingFrame;
@@ -54,6 +55,15 @@ public class Maker extends MakerSwingFrame {
         return BootstrapVersion.VERSION_3;
     }
     
+    @Override
+    public Class getClassManagedBean() {
+        return ClassMB.class;
+    }
+
+    @Override
+    public String getResourceBundle() {
+        return "/src/main/resources/bundles/messages_pt_BR.properties";
+    }
     
     
 }

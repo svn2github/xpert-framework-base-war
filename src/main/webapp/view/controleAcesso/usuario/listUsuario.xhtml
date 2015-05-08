@@ -12,51 +12,68 @@
         <ui:include src="menuUsuario.xhtml" />
         <h:form id="formListUsuario">
             <x:modalMessages/>
+            <x:dataTableActions target=":formListUsuario:dataTableUsuario" widgetVar="dataTableUsuarioWidget" fileName="usuario_export" />
+
             <p:dataTable paginator="true" rows="10" rowsPerPageTemplate="10,20,30" paginatorPosition="bottom" emptyMessage="#{xmsg['noRecordFound']}"
-                         var="usuario" rowIndexVar="index" styleClass="table-responsive"
+                         var="usuario" rowIndexVar="index" styleClass="table-responsive" 
                          currentPageReportTemplate="#{usuarioMB.dataModel.currentPageReportTemplate}"
-                         widgetVar="dataTableUsuario"
+                         id="dataTableUsuario" widgetVar="dataTableUsuarioWidget"
                          paginatorTemplate="#{usuarioMB.dataModel.paginatorTemplate}"
                          value="#{usuarioMB.dataModel}" lazy="true" >
                 <p:column styleClass="uix-datatable-index">
-                    <f:facet name="header">
-                        <p:commandButton onclick="dataTableUsuario.filter()" type="button" icon="ui-icon-refresh" />
-                    </f:facet>
                     <h:outputText value="#{index+1}"/>
                 </p:column>
                 <p:column headerText="#{msg['usuario.nome']}" sortBy="#{usuario.nome}"
                           filterBy="#{usuario.nome}"
                           >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['usuario.nome']}"/>
+                    </f:facet>
                     <h:outputText value="#{usuario.nome}"/>
                 </p:column>
                 <p:column headerText="#{msg['usuario.cpf']}" sortBy="#{usuario.cpf}"
-                          filterBy="#{usuario.cpf}" style="text-align: center;"
+                          filterBy="#{usuario.cpf}" styleClass="text-center"
                           >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['usuario.cpf']}"/>
+                    </f:facet>
                     <h:outputText converter="cpfConverter" value="#{usuario.cpf}"/>
                 </p:column>
                 <p:column headerText="#{msg['usuario.userLogin']}" sortBy="#{usuario.userLogin}"
                           filterBy="#{usuario.userLogin}"
                           >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['usuario.userLogin']}"/>
+                    </f:facet>
                     <h:outputText value="#{usuario.userLogin}"/>
                 </p:column>
                 <p:column headerText="#{msg['usuario.email']}" sortBy="#{usuario.email}"
                           filterBy="#{usuario.email}"
                           >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['usuario.email']}"/>
+                    </f:facet>
                     <h:outputText value="#{usuario.email}"/>
                 </p:column>
                 <p:column headerText="#{msg['usuario.situacaoUsuario']}" sortBy="#{usuario.situacaoUsuario}"
                           filterBy="#{usuario.situacaoUsuario}"
                           filterOptions="#{findAllBean.getSelect(classMB.situacaoUsuario)}"
-                          style="text-align: center;">
+                          styleClass="text-center">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['usuario.situacaoUsuario']}"/>
+                    </f:facet>
                     <h:outputText value="#{usuario.situacaoUsuario.descricao}" />
                 </p:column>
                 <p:column headerText="#{msg['usuario.superUsuario']}" sortBy="#{usuario.superUsuario}"
                           filterBy="#{usuario.superUsuario}"
                           filterOptions="#{booleanSelectItensEmptyOption}"
-                          style="text-align: center;">
+                          styleClass="text-center">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['usuario.superUsuario']}"/>
+                    </f:facet>
                     <h:outputText value="#{usuario.superUsuario}" converter ="yesNoConverter" />
                 </p:column>
-                <p:column styleClass="uix-datatable-actions">
+                <p:column styleClass="uix-datatable-actions" exportable="false">
                     <f:facet name="header">
                         <h:outputText value="#{xmsg['actions']}"/>
                     </f:facet>
@@ -75,12 +92,12 @@
                         </p:commandButton>
                     </x:securityArea>
                 </p:column>
-                <f:facet name="footer">
-                    <x:securityArea rolesAllowed="usuario.audit">
-                        <x:auditDelete for="#{classMB.usuario}"/>
-                    </x:securityArea>
-                </f:facet>
             </p:dataTable>
+            <div class="uix-audit-delete">
+                <x:securityArea rolesAllowed="usuario.audit">
+                    <x:auditDelete for="#{classMB.usuario}"/>
+                </x:securityArea>
+            </div>
         </h:form>
 
         <p:dialog widgetVar="widgetUsuarioDetail" header="#{msg['usuario.detail']}" appendTo="@(body)" modal="true" styleClass="uix-dialog-fluid">

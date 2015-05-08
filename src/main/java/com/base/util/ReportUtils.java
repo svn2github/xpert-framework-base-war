@@ -221,7 +221,7 @@ public class ReportUtils {
 
         //parametros padrao do relatorio
         parameters.put(REPORT_PATH, FacesContext.getCurrentInstance().getExternalContext().getRealPath(path));
-        parameters.put("usuario", usuario);
+        parameters.put("usuario", usuario.getNome());
         parameters.put("ip", FacesUtils.getIP());
         parameters.put(JRParameter.REPORT_LOCALE, I18N.getLocale());
         parameters.put("titulo", TITULO);

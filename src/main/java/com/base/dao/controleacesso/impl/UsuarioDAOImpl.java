@@ -15,7 +15,14 @@ import javax.ejb.Stateless;
 public class UsuarioDAOImpl extends BaseDAOImpl<Usuario> implements UsuarioDAO {
 
     @Override
+    public Class getEntityClass() {
+        return Usuario.class;
+    }
+
+    @Override
     public List<Usuario> getUsuariosAtivos() {
         return list("situacaoUsuario", SituacaoUsuario.ATIVO, "nome");
     }
+    
+    
 }

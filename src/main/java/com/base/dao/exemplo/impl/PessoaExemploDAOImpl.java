@@ -11,4 +11,10 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class PessoaExemploDAOImpl extends BaseDAOImpl<PessoaExemplo> implements PessoaExemploDAO {
+
+    @Override
+    public Class getEntityClass() {
+        return PessoaExemplo.class;
+    }
+
 }

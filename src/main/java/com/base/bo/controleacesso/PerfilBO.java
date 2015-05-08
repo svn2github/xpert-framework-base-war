@@ -1,12 +1,13 @@
 package com.base.bo.controleacesso;
 
 import com.base.dao.controleacesso.PerfilDAO;
+import com.base.dao.controleacesso.PermissaoDAO;
 import com.base.dao.controleacesso.UsuarioDAO;
 import com.base.modelo.controleacesso.Perfil;
+import com.base.modelo.controleacesso.Permissao;
 import com.base.modelo.controleacesso.Usuario;
 import com.base.util.SessaoUtils;
 import com.xpert.core.crud.AbstractBusinessObject;
-import com.xpert.persistence.dao.BaseDAO;
 import com.xpert.core.validation.UniqueField;
 import com.xpert.core.exception.BusinessException;
 import com.xpert.core.validation.UniqueFields;
@@ -26,27 +27,62 @@ public class PerfilBO extends AbstractBusinessObject<Perfil> {
     private PerfilDAO perfilDAO;
     @EJB
     private UsuarioDAO usuarioDAO;
+    @EJB
+    private PermissaoBO permissaoBO;
+    @EJB
+    private PermissaoDAO permissaoDAO;
 
     @Override
-    public BaseDAO getDAO() {
+    public PerfilDAO getDAO() {
         return perfilDAO;
     }
 
     @Override
     public List<UniqueField> getUniqueFields() {
-          return new UniqueFields().add("descricao");
+        return new UniqueFields().add("descricao");
+    }
+
+    /**
+     * metodo para garantir que uma permissao nao seja adicionada sem que o
+     * usuario logado possua ela
+     * 
+     * @param perfil
+     */
+    public void verificarPermissoesPerfil(Perfil perfil) {
+        //para o super usuario isso nao e necessario
+        if (SessaoUtils.getUser().isSuperUsuario() == false) {
+            
+            List<Permissao> permissoesUsuarioLogado = permissaoBO.getPermissoes(SessaoUtils.getUser());
+            List<Permissao> permissoesBanco = new ArrayList<Permissao>();
+            if (perfil.getId() != null) {
+                permissoesBanco = permissaoDAO.getPermissoes(perfil);
+            }
+            //iterar sobre a lista das permissoes selecionadas na tela, caso o usuario nao tenha acesso a ela, ela sera removida
+            List<Permissao> permissoesARemover = new ArrayList<Permissao>();
+            for (Permissao permissao : perfil.getPermissoes()) {
+                //se o usuario nao contem essa permissao e ela nao esta adicionada no banco, remover
+                if (!permissoesUsuarioLogado.contains(permissao) && !permissoesBanco.contains(permissao)) {
+                    permissoesARemover.add(permissao);
+                }
+            }
+            perfil.getPermissoes().removeAll(permissoesARemover);
+
+        }
     }
 
     @Override
     public void save(Perfil perfil) throws BusinessException {
 
         boolean novo = perfil.getId() == null;
+        verificarPermissoesPerfil(perfil);
         super.save(perfil);
 
         if (novo == true) {
             //adicionar o perfil ao usuario logado
             Usuario usuario = SessaoUtils.getUser();
+            //recarregar do banco
             if (usuario != null) {
+                usuario = usuarioDAO.find(usuario.getId());
                 usuario.getPerfis().add(perfil);
                 usuarioDAO.merge(usuario);
             }

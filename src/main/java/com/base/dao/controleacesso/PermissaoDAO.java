@@ -15,13 +15,13 @@ import javax.persistence.Query;
 @Local
 public interface PermissaoDAO extends BaseDAO<Permissao> {
 
-    public List<Permissao> getTodasPermissoesComFilhos();
+    public List<Permissao> getTodasPermissoes();
 
-    public List<Permissao> getPermissoesComFilhos(Perfil perfil);
+    public List<Permissao> getPermissoes(Perfil perfil);
 
-    public List<Permissao> getPermissoesComFilhos(Usuario usuario);
+    public List<Permissao> getPermissoes(Usuario usuario);
 
-    public List<Permissao> getPermissoesMenuComFilhos(Perfil perfil);
+    public List<Permissao> getPermissoesMenu(Perfil perfil);
 
     public List<Permissao> getPermissoesAtalhos(Usuario usuario);
 }

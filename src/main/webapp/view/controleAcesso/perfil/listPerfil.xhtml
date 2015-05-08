@@ -12,8 +12,9 @@
         <ui:include src="menuPerfil.xhtml" />
         <h:form id="formListPerfil">
             <x:modalMessages/>
+            <x:dataTableActions target=":formListPerfil:dataTablePerfil" widgetVar="widgetDataTablePerfil" fileName="perfil_export" />
             <p:dataTable paginator="true" rows="10" rowsPerPageTemplate="10,20,30" paginatorPosition="bottom" emptyMessage="#{xmsg['noRecordFound']}"
-                         var="perfil" value="#{perfilMB.dataModel}" lazy="true" styleClass="table-responsive"
+                         id="dataTablePerfil" var="perfil" value="#{perfilMB.dataModel}" lazy="true" styleClass="table-responsive"
                          currentPageReportTemplate="#{perfilMB.dataModel.currentPageReportTemplate}"
                          paginatorTemplate="#{perfilMB.dataModel.paginatorTemplate}"
                          rowIndexVar="index" widgetVar="widgetDataTablePerfil">
@@ -24,17 +25,23 @@
 
                 <p:column headerText="#{msg['perfil.descricao']}" sortBy="#{perfil.descricao}"
                           filterBy="#{perfil.descricao}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['perfil.descricao']}"/>
+                    </f:facet>
                     <h:outputText value="#{perfil.descricao}"/>
                 </p:column>
 
                 <p:column headerText="#{msg['perfil.ativo']}" sortBy="#{perfil.ativo}"
                           style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['perfil.ativo']}"/>
+                    </f:facet>
                     <h:outputText value="#{perfil.ativo}" converter ="yesNoConverter" />
                 </p:column>
 
-                <p:column styleClass="uix-datatable-actions">
+                <p:column styleClass="uix-datatable-actions" exportable="false">
                     <f:facet name="header">
-                         <h:outputText value="#{xmsg['actions']}"/>
+                        <h:outputText value="#{xmsg['actions']}"/>
                     </f:facet>
                     <p:commandButton oncomplete="PF('widgetPerfilDetail').show();"  
                                      action="#{perfilMB.detail}"
@@ -53,12 +60,12 @@
                         </p:commandButton>
                     </x:securityArea>
                 </p:column>
-                <f:facet name="footer">
-                    <x:securityArea rolesAllowed="perfil.audit">
-                        <x:auditDelete for="#{classMB.perfil}"/>
-                    </x:securityArea>
-                </f:facet>
             </p:dataTable>
+            <div class="uix-audit-delete">
+                <x:securityArea rolesAllowed="perfil.audit">
+                    <x:auditDelete for="#{classMB.perfil}"/>
+                </x:securityArea>
+            </div>
         </h:form>
 
         <p:dialog widgetVar="widgetPerfilDetail" header="#{msg['perfil.detail']}" appendTo="@(body)" modal="true" styleClass="uix-dialog-fluid">

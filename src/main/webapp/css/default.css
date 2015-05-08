@@ -41,6 +41,7 @@ select{padding: 4px;}
 .w-330{width: 330px;}
 .w-340{width: 340px;}
 .w-350{width: 350px;}
+.w-100p{width: 100%}
 .ui-tabs{margin-bottom: 2px;}
 .ui-datatable th{text-align: center !important;  white-space: normal;}
 .datatable-auditing th, .datatable-auditing td, .datatable-auditing td .ui-dt-c, .datatable-auditing td .ui-dt-c span{white-space: normal !important;}
@@ -96,3 +97,4 @@ section.conteudo h1.page-header  span{vertical-align: middle;}
 }
 .ui-dialog.ui-widget-content .ui-dialog-title{font-size: 18px;}
 .ui-datatable table{ table-layout: auto; }
+.ui-datatable tr.ui-widget-content:hover, .ui-panelgrid tr.ui-widget-content:hover{background-color: #EBEBEB;}

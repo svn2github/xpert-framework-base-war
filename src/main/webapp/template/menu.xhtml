@@ -15,7 +15,6 @@
                     <h:panelGroup>
                         <p:autoComplete minQueryLength="3" id="autoCompleteMenu" 
                                         completeMethod="#{sessaoUsuarioMB.pesquisarPermissao}"
-                                        global="false"
                                         converter="entityConverter" styleClass="acesso-rapido"
                                         itemValue="#{permissao}" scrollHeight="300"
                                         var="permissao" itemLabel="#{permissao.urlMenuVerificado}">

@@ -51,6 +51,9 @@
                             <h:outputText value="#{permissao.descricao}" />  
                         </p:treeNode>  
                     </p:tree>  
+                    <script>
+                        Xpert.disableTree(".disable-tree");
+                    </script>
                 </div>
             </p:tab>
             <p:tab title="#{msg['perfil.usuarios']}">
@@ -83,21 +86,8 @@
                 </p:dataTable>
             </p:tab>
         </p:tabView>
-        
-        <script>
-            /*<![CDATA[*/
-            $(function() {
-                $(".disable-tree .ui-treenode-label").removeClass("ui-state-highlight");
-                $(".disable-tree .ui-tree-selectable *:not(.ui-tree-toggler)").click(function() {
-                    return false;
-                });
-                $(".disable-tree .ui-chkbox-box").addClass("ui-state-disabled").click(function() {
-                    return false;
-                });
-            });
-            /*]]>*/
 
-        </script>
+
         <div style="text-align: center;">
             <p:commandButton type="button" value="#{xmsg['close']}" onclick="PF('widgetPerfilDetail').hide()" />
             <x:securityArea rolesAllowed="perfil.audit">

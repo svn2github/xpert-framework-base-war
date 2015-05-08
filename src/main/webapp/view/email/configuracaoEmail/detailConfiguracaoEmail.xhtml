@@ -29,6 +29,12 @@
                         <h:outputText value="#{configuracaoEmailMB.entity.email}"/>
                     </span>
                 </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <h:outputLabel value="#{msg['configuracaoEmail.usuario']}:"  styleClass="control-label"/><br/>
+                    <span class="uix-content-detail">
+                        <h:outputText value="#{configuracaoEmailMB.entity.usuario}"/>
+                    </span>
+                </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                     <h:outputLabel value="#{msg['configuracaoEmail.senha']}:"  styleClass="control-label"/><br/>
@@ -38,9 +44,9 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <h:outputLabel value="#{msg['configuracaoEmail.smptPort']}:"  styleClass="control-label"/><br/>
+                    <h:outputLabel value="#{msg['configuracaoEmail.smtpPort']}:"  styleClass="control-label"/><br/>
                     <span class="uix-content-detail">
-                        <h:outputText value="#{configuracaoEmailMB.entity.smptPort}"/>
+                        <h:outputText value="#{configuracaoEmailMB.entity.smtpPort}"/>
                     </span>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">

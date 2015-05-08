@@ -76,12 +76,13 @@ public class SessaoUsuarioMB extends AbstractUserSession implements Serializable
                     String url = permissao.getUrlMenuVerificado();
                     if (url != null && !url.trim().isEmpty()) {
                         Submenu submenu = null;
-                        if (permissao.getPermissaoPai() != null) {
-                            submenu = subMenuMap.get(permissao.getPermissaoPai());
+                        Permissao permissaoPai = permissaoDAO.getInitialized(permissao.getPermissaoPai());
+                        if (permissaoPai != null) {
+                            submenu = subMenuMap.get(permissaoPai);
                             //cadicionar o menu pai quando não encontrado
                             if (submenu == null) {
-                                putSubmenu(permissao.getPermissaoPai(), subMenuMap, menuModel);
-                                submenu = subMenuMap.get(permissao.getPermissaoPai());
+                                putSubmenu(permissaoPai, subMenuMap, menuModel);
+                                submenu = subMenuMap.get(permissaoPai);
                             }
                         }
                         item = new DefaultMenuItem();

@@ -26,6 +26,9 @@ public class ConfiguracaoEmailMB extends AbstractBaseBean<ConfiguracaoEmail> imp
     @EJB
     private EmailBO emailBO;
     
+    @NotBlank(message="required.tituloMensagem")
+    private String titulo = "Mensagem de Teste";
+    
     @NotBlank(message="required.mensagem")
     private String mensagem;
     
@@ -35,7 +38,7 @@ public class ConfiguracaoEmailMB extends AbstractBaseBean<ConfiguracaoEmail> imp
     
     public void enviarEmail() {
         try {
-            emailBO.enviar("Mensagem de Teste", mensagem, getEntity(), email);
+            emailBO.enviar(titulo, mensagem, getEntity(), email);
             FacesMessageUtils.sucess();
         } catch (BusinessException ex) {
             FacesMessageUtils.error(ex);
@@ -51,6 +54,16 @@ public class ConfiguracaoEmailMB extends AbstractBaseBean<ConfiguracaoEmail> imp
     public String getDataModelOrder() {
         return "email";
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
+    
 
     public String getMensagem() {
         return mensagem;

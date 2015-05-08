@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.Email;
 public class SolicitacaoRecuperacaoSenha implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "SolicitacaoRecuperacaoSenha", allocationSize = 1, sequenceName = "solicitacaorecuperacaosenha_id_seq")
+    @SequenceGenerator(name = "SolicitacaoRecuperacaoSenha", allocationSize = 1, sequenceName = "solicitrecuperacaosenha_id_seq")
     @GeneratedValue(generator = "SolicitacaoRecuperacaoSenha")
     private Long id;
     @Email

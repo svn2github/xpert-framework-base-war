@@ -20,21 +20,26 @@
                 <x:info value="#{msg['solicitacaoRecuperacaoSenha.informeNovaSenha']}"/>
                 <x:modalMessages/>
 
-                <h:panelGrid columns="2" styleClass="grid-form">
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <h:outputLabel value="* #{msg['usuario.novaSenha']}:" />
+                        <p:password feedback="true" autocomplete="false"
+                                    value="#{alterPasswordMB.password}" maxlength="20" styleClass="form-control"  
+                                    promptLabel="#{msg['informeUmaSenha']}"
+                                    goodLabel="#{msg['boa']}" 
+                                    strongLabel="#{msg['muitoBoa']}"  weakLabel="#{msg['fraca']}"/>
 
-                    <h:outputLabel value="* #{msg['usuario.novaSenha']}:" />
-                    <p:password feedback="true" autocomplete="false"
-                                value="#{alterPasswordMB.password}" maxlength="20" size="30" 
-                                promptLabel="#{msg['informeUmaSenha']}"
-                                goodLabel="#{msg['boa']}" 
-                                strongLabel="#{msg['muitoBoa']}" 
-                                weakLabel="#{msg['fraca']}"/>
+                    </div>
+                </div>
 
-                    <h:outputLabel value="* #{msg['usuario.senhaConfirmacao']}:" />
-                    <p:password feedback="false" value="#{alterPasswordMB.confirmPassword}" maxlength="20"  size="30" autocomplete="false"/>
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
 
-                </h:panelGrid>
-                <p:separator/>
+                        <h:outputLabel value="* #{msg['usuario.senhaConfirmacao']}:" />
+                        <p:password feedback="false" value="#{alterPasswordMB.confirmPassword}" maxlength="20"  styleClass="form-control"   autocomplete="false"/>
+
+                    </div>
+                </div>
                 <h:outputText value="#{xmsg['requiredFieldsForm']}"/>
                 <p:spacer height="5"/>
                 <div style="text-align: center;">
