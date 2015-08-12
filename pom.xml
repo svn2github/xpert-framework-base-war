@@ -63,7 +63,7 @@
         <dependency>
             <groupId>com.xpert</groupId>
             <artifactId>xpert-framework</artifactId>
-            <version>1.8.2-SNAPSHOT</version>
+            <version>1.8.2</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
@@ -102,9 +102,9 @@
             <version>2.6</version>
         </dependency>
         <dependency>
-            <groupId>commons-email</groupId>
+            <groupId>org.apache.commons</groupId>
             <artifactId>commons-email</artifactId>
-            <version>1.1</version>
+            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
