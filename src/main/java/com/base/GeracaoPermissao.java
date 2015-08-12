@@ -38,6 +38,8 @@ public class GeracaoPermissao {
         create(new Permissao("permissao.list", "Consulta de Permissão", "/view/controleAcesso/permissao/listPermissao.jsf", true), "permissao");
         create(new Permissao("permissao.audit", "Auditoria de Permissão"), "permissao");
         create(new Permissao("permissao.delete", "Exclusão de Permissão"), "permissao");
+        create(new Permissao("permissao.ativacao", "Ativação de Permissão"), "permissao");
+        create(new Permissao("permissao.inativacao", "Inativação de Permissão"), "permissao");
 
         //Usuario
         create(new Permissao("usuario", "Usuário", true), "controleAcesso");
@@ -61,7 +63,6 @@ public class GeracaoPermissao {
         create(new Permissao("solicitacaoRecuperacaoSenha.list", "Consulta Recuperação de Senha", "/view/controleAcesso/solicitacaoRecuperacaoSenha/listSolicitacaoRecuperacaoSenha.jsf", true), "solicitacaoRecuperacaoSenha");
         create(new Permissao("solicitacaoRecuperacaoSenha.audit", "Auditoria de Recuperação de Senha"), "solicitacaoRecuperacaoSenha");
 
-
         /*
          * Email
          */
@@ -81,7 +82,7 @@ public class GeracaoPermissao {
         create(new Permissao("configuracaoEmail.audit", "Auditoria de Configuração de Email"), "configuracaoEmail");
         create(new Permissao("configuracaoEmail.delete", "Exclusão de Configuração de Email"), "configuracaoEmail");
 
-       //Pessoa Exemplo
+        //Pessoa Exemplo
         create(new Permissao("pessoaExemplo", "Pessoa Exemplo", true), null);
         create(new Permissao("pessoaExemplo.create", "Cadastro de Pessoa Exemplo", "/view/exemplo/pessoaExemplo/createPessoaExemplo.jsf", true), "pessoaExemplo");
         create(new Permissao("pessoaExemplo.list", "Consulta de Pessoa Exemplo", "/view/exemplo/pessoaExemplo/listPessoaExemplo.jsf", true), "pessoaExemplo");
@@ -97,7 +98,7 @@ public class GeracaoPermissao {
         create(new Permissao("erroSistema.list", "Relatório de Erros", "/view/configuracao/erroSistema/listErroSistema.jsf", true), "configuracaoSistema");
 
         /**
-         * Permissoes Globais
+         * Permissoes Globais (essas permissoes todos terao acessos)
          */
         //Alterar Senha
         createGlobal(new Permissao("usuario.alterarSenha", "Alterar Senha", "/view/controleAcesso/password/alterPassword.jsf", true), "controleAcesso");
@@ -121,6 +122,9 @@ public class GeracaoPermissao {
 
         if (pai != null && !pai.isEmpty()) {
             Permissao permissaoPai = permissaoDAO.unique("key", pai);
+            if (permissaoPai == null) {
+                logger.log(Level.WARNING, "Permissao ''{0}'' pai nao encontrada.", pai);
+            }
             permissao.setPermissaoPai(permissaoPai);
         }
 

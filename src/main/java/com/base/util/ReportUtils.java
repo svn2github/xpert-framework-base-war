@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.base.util;
 
 import com.base.modelo.controleacesso.Usuario;
@@ -26,9 +22,9 @@ import net.sf.jasperreports.engine.JRParameter;
 public class ReportUtils {
 
     private static final Logger logger = Logger.getLogger(ReportUtils.class.getName());
-    public static final String LOGO = "/images/logo/logo_report.png";
-    public static final String TITULO = "SISTEMA BASE";
-    public static final String SUBTITULO = "Subtítulo do Sistema BASE";
+    public static final String LOGO = "/images/logo.png";
+    public static final String TITULO = "SISTEMA [xpert-framework-base]";
+    public static final String SUBTITULO = "Subtítulo do Sistema [xpert-framework-base]";
     public static final String TEMPLATE_RETRATO_PADRAO = "/WEB-INF/report/template/TemplateRetrato.jasper";
     public static final String TEMPLATE_PAISAGEM_PADRAO = "/WEB-INF/report/template/TemplatePaisagem.jasper";
     public static final String REPORT_PATH = "REPORT_PATH";

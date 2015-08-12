@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author
+ * @author Ayslan
  */
 @Stateless
 public class ErroSistemaDAOImpl extends BaseDAOImpl<ErroSistema> implements ErroSistemaDAO {

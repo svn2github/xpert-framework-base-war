@@ -11,6 +11,8 @@
 
         <p:tabView>
             <p:tab title="#{msg['dadosGerais']}">
+
+
                 <div class="container-fluid">
                     <div class="row">
 
@@ -112,15 +114,23 @@
         <div style="text-align: center;">
             <x:securityArea rolesAllowed="usuario.create">
                 <p:commandButton process="@form" update="@form" action="#{usuarioMB.save}" value="#{xmsg['save']}" />
-                <p:commandButton process="@this" update="@form" 
-                                 rendered="#{not empty usuarioMB.entity.id}"
+                <p:commandButton process="@this" update="@form"  rendered="#{not empty usuarioMB.entity.id}"
                                  action="#{usuarioMB.enviarEmailRecuperacaoSenha}" value="#{msg['solicitacaoRecuperacaoSenha.enviarEmailRecuperacaoSenha']}" >
                     <x:confirmation message="#{msg['solicitacaoRecuperacaoSenha.confirmaEnviarEmailRecuperacaoSenha']}"/>
                 </p:commandButton>
+                <p:commandButton process="@this" update=":formMenuUsuario"  oncomplete="PF('widgetMenuUsuario').show()"
+                                 rendered="#{not empty usuarioMB.entity.id}" title="#{msg['usuario.menuUsuarioVisualizar']}"
+                                 action="#{usuarioMB.carregarMenuUsuario}" value="#{msg['usuario.menuUsuario']}" />
             </x:securityArea>
             <x:securityArea rolesAllowed="usuario.audit">
                 <x:audit for="#{usuarioMB.entity}"/>
             </x:securityArea>
         </div>
     </h:form>
+
+    <p:dialog widgetVar="widgetMenuUsuario" header="#{msg['usuario.menuUsuario']}" appendTo="@(body)" modal="true" styleClass="uix-dialog-fluid">
+        <ui:include src="formMenuUsuario.xhtml"/>
+    </p:dialog>
+
+
 </ui:composition>

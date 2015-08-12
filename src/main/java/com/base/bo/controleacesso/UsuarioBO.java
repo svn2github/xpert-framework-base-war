@@ -25,7 +25,7 @@ import org.apache.commons.lang.RandomStringUtils;
 
 /**
  *
- * @author #Author
+ * @author Ayslan
  */
 @Stateless
 public class UsuarioBO extends AbstractBusinessObject<Usuario> {
@@ -45,6 +45,11 @@ public class UsuarioBO extends AbstractBusinessObject<Usuario> {
         return usuarioDAO;
     }
 
+    /**
+     * nao pode-se repetir o email , cpf e login
+     *
+     * @return
+     */
     @Override
     public List<UniqueField> getUniqueFields() {
         return new UniqueFields()
@@ -129,6 +134,12 @@ public class UsuarioBO extends AbstractBusinessObject<Usuario> {
         return true;
     }
 
+    /**
+     * retorn o usuario a partir do cpf
+     *
+     * @param cpf
+     * @return
+     */
     public Usuario getUsuario(String cpf) {
         return usuarioDAO.unique("cpf", cpf);
     }

@@ -54,12 +54,16 @@ public class Permissao implements Serializable, Role {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "permissoes")
     private List<Perfil> perfis;
-
-    @Transient
-    private boolean marcado;
+    
+    private boolean ativo = true;
 
     @Transient
     private String caminhoPermissao;
+    
+    /**
+     * iniciar com valor padrao 0
+     */
+    private Integer ordenacao = 0;
 
     public Permissao() {
     }
@@ -118,6 +122,22 @@ public class Permissao implements Serializable, Role {
         return descricao;
     }
 
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Integer getOrdenacao() {
+        return ordenacao;
+    }
+
+    public void setOrdenacao(Integer ordenacao) {
+        this.ordenacao = ordenacao;
+    }
+    
     public List<Perfil> getPerfis() {
         return perfis;
     }
@@ -173,14 +193,7 @@ public class Permissao implements Serializable, Role {
     public void setPermissoesFilhas(List<Permissao> permissoesFilhas) {
         this.permissoesFilhas = permissoesFilhas;
     }
-
-    public boolean isMarcado() {
-        return marcado;
-    }
-
-    public void setMarcado(boolean marcado) {
-        this.marcado = marcado;
-    }
+    
 
     @Override
     public String getKey() {

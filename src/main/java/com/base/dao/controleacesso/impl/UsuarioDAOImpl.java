@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author #Author
+ * @author Ayslan
  */
 @Stateless
 public class UsuarioDAOImpl extends BaseDAOImpl<Usuario> implements UsuarioDAO {

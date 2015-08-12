@@ -27,7 +27,7 @@ public class HistoricoSituacaoUsuario implements Serializable {
     private Usuario usuario;
 
     /*
-     * Usuário que alterou a situacao
+     * Usuario que alterou a situacao
      */
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuarioAlteracao;

@@ -7,7 +7,7 @@ package com.base.modelo.controleacesso;
 public enum TipoRecuperacaoSenha {
 
     NOVO_USUARIO("Novo Usuário"), ESQUECI_SENHA("Esqueci Senha");
-    private String descricao;
+    private final String descricao;
 
     private TipoRecuperacaoSenha(String descricao) {
         this.descricao = descricao;

@@ -61,10 +61,8 @@ public class SolicitacaoRecuperacaoSenhaBO extends AbstractBusinessObject<Solici
     }
 
     public Date getDataValidade(Date dataCadastro) {
-
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, Constantes.MINUTOS_VALIDADE_RECUPERACAO_SENHA);
-
         return calendar.getTime();
     }
 
@@ -79,16 +77,19 @@ public class SolicitacaoRecuperacaoSenhaBO extends AbstractBusinessObject<Solici
     }
 
     /**
-     * gera um token para um SolicitacaoRecuperacaoSenha, o token eh um hash SHA256 dos campos: id + string aleatoria + data atual
-     * 
+     * gera um token para um SolicitacaoRecuperacaoSenha, o token eh um hash
+     * SHA256 dos campos: id + string aleatoria + data atual
+     *
      * @param solicitacaoRecuperacaoSenha
      * @return
-     * @throws NoSuchAlgorithmException 
+     * @throws NoSuchAlgorithmException
      */
     public String getToken(SolicitacaoRecuperacaoSenha solicitacaoRecuperacaoSenha) throws NoSuchAlgorithmException {
 
+        //concatenar o id + string aleatoria + timestamp
         String key = solicitacaoRecuperacaoSenha.getId() + RandomStringUtils.random(20) + new Date().getTime();
 
+        //retonar SHA256
         return Encryption.getSHA256(key);
     }
 
@@ -104,19 +105,12 @@ public class SolicitacaoRecuperacaoSenhaBO extends AbstractBusinessObject<Solici
 
     }
 
-    public void save(String email, TipoRecuperacaoSenha tipoRecuperacaoSenha) throws BusinessException {
-
-        if (email == null || email.trim().isEmpty()) {
-            throw new BusinessException("required.email");
-        }
-
-        Usuario usuario = usuarioDAO.unique("email", email.trim());
-        if (usuario == null) {
-            throw new BusinessException("business.usuarioNaoEncontradoComEmail");
-        }
-        if(usuario.getSituacaoUsuario() == null || usuario.getSituacaoUsuario().equals(SituacaoUsuario.INATIVO)){
-            throw new BusinessException("business.usuarioInativo");
-        }
+    /**
+     * Inativa todas as solicitacoes do usuario que estao ATIVAS
+     *
+     * @param usuario
+     */
+    public void inativarSolicitacoes(Usuario usuario) {
         //inativar anteriores
         Restrictions restrictions = new Restrictions();
         restrictions.add("usuario", usuario);
@@ -129,6 +123,24 @@ public class SolicitacaoRecuperacaoSenhaBO extends AbstractBusinessObject<Solici
                 solicitacaoRecuperacaoSenhaDAO.merge(solicitacaoRecuperacaoSenha, false);
             }
         }
+    }
+
+    public void save(String email, TipoRecuperacaoSenha tipoRecuperacaoSenha) throws BusinessException {
+
+        if (email == null || email.trim().isEmpty()) {
+            throw new BusinessException("required.email");
+        }
+
+        Usuario usuario = usuarioDAO.unique("email", email.trim());
+        if (usuario == null) {
+            throw new BusinessException("business.usuarioNaoEncontradoComEmail");
+        }
+        if (usuario.getSituacaoUsuario() == null || usuario.getSituacaoUsuario().equals(SituacaoUsuario.INATIVO)) {
+            throw new BusinessException("business.usuarioInativo");
+        }
+
+        //inativar anteriores
+        inativarSolicitacoes(usuario);
 
         //se o suaurio nao possuir senha cadastrada, deve ser enviado email de novo cadastro
         if (usuario.getSenhaCadastrada() == false && tipoRecuperacaoSenha.equals(TipoRecuperacaoSenha.ESQUECI_SENHA)) {

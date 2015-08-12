@@ -64,11 +64,23 @@
                         <div class="checkbox">
                             <label>
                                 <h:selectBooleanCheckbox value="#{permissaoMB.entity.global}" />
-                                #{msg['permissao.global']} (<h:outputText value="#{msg['permissao.globalInfo']}"/>)
+                                #{msg['permissao.global']}
                             </label>
                         </div>
+                        <h:outputText value="#{msg['permissao.globalInfo']}" styleClass="help-block"/>
                     </div>
 
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                        <div class="checkbox">
+                            <label>
+                                <h:selectBooleanCheckbox value="#{permissaoMB.entity.ativo}" />
+                                #{msg['permissao.ativo']}
+                            </label>
+                        </div>
+                        <h:outputText value="#{msg['permissao.ativoInfo']}" styleClass="help-block"/>
+                    </div>
                 </div>
             </div>
         </p:fieldset>
@@ -105,7 +117,7 @@
 
 
         <h:outputText value="#{xmsg['requiredFieldsForm']}"/>
-        <div style="text-align: center;">
+        <div class="uix-center">
             <x:securityArea rolesAllowed="permissao.create">
                 <p:commandButton process="@form" update="@form" action="#{permissaoMB.save}" value="#{xmsg['save']}" />
             </x:securityArea>

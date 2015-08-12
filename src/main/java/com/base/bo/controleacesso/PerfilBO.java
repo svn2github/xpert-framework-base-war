@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author #Author
+ * @author Ayslan
  */
 @Stateless
 public class PerfilBO extends AbstractBusinessObject<Perfil> {

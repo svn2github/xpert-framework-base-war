@@ -52,7 +52,7 @@ public class ApplicationExceptionHandler extends ExceptionHandlerWrapper {
 
             Throwable throwable = i.next().getContext().getException();
             logger.log(Level.SEVERE, "", throwable);
-            pilhaErro = ErroSistemaBO.montarPilha(throwable);
+            pilhaErro = ErroSistemaBO.getStackTrace(throwable);
 
             //here you do what ever you want with exception
             try {

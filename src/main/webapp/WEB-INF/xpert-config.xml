@@ -1,5 +1,4 @@
-
-<xpert-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<xpert-config>
 
     <auditing>
         <auditing-impl>com.base.modelo.audit.Auditing</auditing-impl>

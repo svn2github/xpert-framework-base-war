@@ -8,10 +8,16 @@ import javax.ejb.Local;
 
 /**
  *
- * @author #Author
+ * @author Ayslan
  */
 @Local
 public interface PerfilDAO extends BaseDAO<Perfil> {
-    
-     public List<Perfil> getPerfis(Usuario usuario);
+
+    /**
+     * retorn os perfis do usuario
+     *
+     * @param usuario
+     * @return
+     */
+    public List<Perfil> getPerfis(Usuario usuario);
 }

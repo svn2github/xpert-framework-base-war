@@ -6,7 +6,8 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author
+ * @author Ayslan
+ * @param <T>
  */
 public class BaseDAOImpl<T> extends com.xpert.persistence.dao.BaseDAOImpl<T> {
 
@@ -16,8 +17,13 @@ public class BaseDAOImpl<T> extends com.xpert.persistence.dao.BaseDAOImpl<T> {
     public BaseDAOImpl() {
     }
 
+    public BaseDAOImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+    
     @Override
     public EntityManager getEntityManager() {
         return entityManager;
     }
+
 }

@@ -10,7 +10,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author #Author
+ * @author Ayslan
  */
 @Stateless
 public class PerfilDAOImpl extends BaseDAOImpl<Perfil> implements PerfilDAO {

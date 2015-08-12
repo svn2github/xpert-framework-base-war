@@ -6,7 +6,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author
+ * @author Ayslan
  */
 @Local
 public interface ErroSistemaDAO extends BaseDAO<ErroSistema> {

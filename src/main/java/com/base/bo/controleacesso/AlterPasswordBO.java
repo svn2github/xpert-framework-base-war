@@ -28,15 +28,19 @@ public class AlterPasswordBO {
     /**
      * Validar a alteracao de senha do usuario
      *
-     * 1 - a senha nao pode esta vazia 
-     * 2 - a confirmacao de senha deve ser igual a senha 
-     * 3 - senha atual deve esta correta
+     * 1 - a senha nao pode esta vazia. 2 - a confirmacao de senha deve ser igual
+     * a senha. 3 - senha atual deve esta correta
+     *
+     * Caso o objeto solicitacaoRecuperacaoSenha esteja presente nao precisa
+     * validar o passo 3, pois nesse caso o usuario esta redefinindo sua senha
+     * sem saber a atual
      *
      * @param usuario
      * @param password
      * @param confirmPassword
-     * @param transactionPassword Indica se a senha a ser alterada eh a de
-     * transacao
+     * @param currentPassword
+     * @param solicitacaoRecuperacaoSenha
+     *
      * @throws BusinessException
      */
     public void validate(Usuario usuario, String password, String confirmPassword, String currentPassword, SolicitacaoRecuperacaoSenha solicitacaoRecuperacaoSenha) throws BusinessException {
@@ -82,6 +86,16 @@ public class AlterPasswordBO {
         exception.check();
     }
 
+    /**
+     * Salva a alteracao de senha do usuario
+     *
+     * @param usuario
+     * @param password
+     * @param confirmPassword
+     * @param currentPassword
+     * @param solicitacaoRecuperacaoSenha
+     * @throws BusinessException
+     */
     public void save(Usuario usuario, String password, String confirmPassword, String currentPassword, SolicitacaoRecuperacaoSenha solicitacaoRecuperacaoSenha) throws BusinessException {
 
         validate(usuario, password, confirmPassword, currentPassword, solicitacaoRecuperacaoSenha);
@@ -102,7 +116,7 @@ public class AlterPasswordBO {
             solicitacaoRecuperacaoSenha.setDataAlteracaoSenha(new Date());
             solicitacaoRecuperacaoSenhaDAO.merge(solicitacaoRecuperacaoSenha);
         }
-        
+
         usuarioDAO.merge(usuario);
 
     }

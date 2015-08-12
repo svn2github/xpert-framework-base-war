@@ -3,7 +3,6 @@ package com.base.mb.controleacesso;
 import com.base.bo.controleacesso.SolicitacaoRecuperacaoSenhaBO;
 import com.base.modelo.controleacesso.TipoRecuperacaoSenha;
 import com.xpert.core.exception.BusinessException;
-import com.xpert.faces.primefaces.PrimeFacesUtils;
 import com.xpert.faces.utils.FacesMessageUtils;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;

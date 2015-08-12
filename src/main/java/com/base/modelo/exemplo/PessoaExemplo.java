@@ -17,8 +17,8 @@ import org.hibernate.validator.constraints.NotBlank;
 public class PessoaExemplo implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "Person", allocationSize = 1, sequenceName = "person_id_seq")
-    @GeneratedValue(generator = "Person")
+    @SequenceGenerator(name = "PessoaExemplo", allocationSize = 1, sequenceName = "pessoaexemplo_id_seq")
+    @GeneratedValue(generator = "PessoaExemplo")
     private Long id;
     
     @Size(max = 200)

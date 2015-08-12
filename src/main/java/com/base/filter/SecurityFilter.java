@@ -9,15 +9,21 @@ import javax.servlet.annotation.WebFilter;
 
 /**
  * Filtro para controle de acesso de usuarios
- * 
+ *
  * @author Ayslan
  */
 @WebFilter(filterName = "SecurityFilter", urlPatterns = {SecurityFilter.PATTERN})
 public class SecurityFilter extends AbstractSecurityFilter {
 
-    public static final String PATTERN = "/view/*";
     private static final Logger logger = Logger.getLogger(SecurityFilter.class.getName());
+    /**
+     * tudo que estiver dentro desta pasta necessita de controle de acesso
+     */
+    public static final String PATTERN = "/view/*";
     private static final String HOME = "/index.jsf";
+    /**
+     * lista de URLs a serem ignoradas pelo controle de acesso
+     */
     private static final String[] IGNORE_URL = {"/view/home.jsf"};
 
     @Override

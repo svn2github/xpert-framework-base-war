@@ -2,15 +2,10 @@ package com.base;
 
 import com.base.dao.DAO;
 import com.base.modelo.controleacesso.*;
-import com.xpert.core.exception.StackException;
-import com.xpert.core.exception.UniqueFieldException;
-import com.xpert.i18n.I18N;
 import com.xpert.persistence.dao.BaseDAO;
-import com.xpert.persistence.query.Restriction;
 import com.xpert.utils.Encryption;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -39,10 +34,6 @@ public class GeracaoDadosSistema {
         return dao.getDAO(entity);
     }
 
-    public List<Restriction> getRestrictions(Restriction... restrictions) {
-        return Arrays.asList(restrictions);
-    }
-
     public void generate() {
 
         try {
@@ -50,17 +41,21 @@ public class GeracaoDadosSistema {
             geracaoModeloEmail.generate();
             //gerar permissões
             geracaoPermissao.generate();
+
+            //gerar perfil ADMIN
             Perfil perfil = getDAO(Perfil.class).unique("descricao", "ADMINISTRADOR");
             if (perfil == null) {
                 perfil = new Perfil();
                 perfil.setDescricao("ADMINISTRADOR");
                 perfil.setAtivo(true);
             }
+
             //adicionar todas as permissoes para o admin
             perfil.setPermissoes(getDAO(Permissao.class).listAll());
             if (perfil.getId() == null) {
                 BaseDAO<Permissao> permissaoDAO = getDAO(Permissao.class);
                 List<Permissao> atalhos = new ArrayList<Permissao>();
+                //permissoes padrao para o perfil ADMIN
                 atalhos.add(permissaoDAO.unique("key", "usuario.list"));
                 atalhos.add(permissaoDAO.unique("key", "usuario.create"));
                 atalhos.add(permissaoDAO.unique("key", "acessoSistema.list"));
@@ -71,11 +66,11 @@ public class GeracaoDadosSistema {
             }
             getDAO(Perfil.class).saveOrMerge(perfil, false);
 
-
+            //criar usuario ADMIN
             Usuario usuario = getDAO(Usuario.class).unique("userLogin", "ADMIN");
+
+            //se nao encontrou, criar um novo
             if (usuario == null) {
-
-
                 //usuario
                 usuario = new Usuario();
                 usuario.setSituacaoUsuario(SituacaoUsuario.ATIVO);
@@ -88,6 +83,8 @@ public class GeracaoDadosSistema {
                 perfis.add(perfil);
                 usuario.setPerfis(perfis);
                 usuario.setUserLogin("ADMIN");
+
+                //definir senha "1" para o usuario
                 try {
                     usuario.setUserPassword(Encryption.getSHA256("1"));
                 } catch (NoSuchAlgorithmException ex) {
@@ -105,27 +102,9 @@ public class GeracaoDadosSistema {
 
             }
 
-
         } catch (Exception ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
-    public static void log(StackException stackException) {
-        boolean i18n = true;
-
-        if (stackException instanceof UniqueFieldException) {
-            if (((UniqueFieldException) stackException).isI18n() == false) {
-                i18n = false;
-            }
-        }
-
-        if (stackException.getExceptions() == null || stackException.getExceptions().isEmpty()) {
-            logger.log(Level.INFO, I18N.get(stackException.getMessage(), stackException.getParametros()));
-        } else {
-            for (StackException re : stackException.getExceptions()) {
-                logger.log(Level.INFO, I18N.get(re.getMessage(), re.getParametros()));
-            }
-        }
-    }
 }

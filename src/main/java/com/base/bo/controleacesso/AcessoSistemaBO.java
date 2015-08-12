@@ -22,7 +22,7 @@ public class AcessoSistemaBO extends AbstractBusinessObject<AcessoSistema> {
 
     @EJB
     private AcessoSistemaDAO acessoSistemaDAO;
-    
+
     @Override
     public BaseDAO getDAO() {
         return acessoSistemaDAO;
@@ -32,14 +32,19 @@ public class AcessoSistemaBO extends AbstractBusinessObject<AcessoSistema> {
     public List<UniqueField> getUniqueFields() {
         return null;
     }
-    
-    public void save(Usuario usuario){
+
+    /**
+     * Registra um acesso ao sistema de um usuario especifico
+     *
+     * @param usuario
+     */
+    public void save(Usuario usuario) {
         AcessoSistema acessoSistema = new AcessoSistema();
         acessoSistema.setDataHora(new Date());
         acessoSistema.setIp(FacesUtils.getIP());
         acessoSistema.setUserAgent(FacesUtils.getBrowser());
         acessoSistema.setUsuario(usuario);
-        acessoSistemaDAO.merge(acessoSistema, false);
+        acessoSistemaDAO.saveOrMerge(acessoSistema, false);
     }
 
     @Override

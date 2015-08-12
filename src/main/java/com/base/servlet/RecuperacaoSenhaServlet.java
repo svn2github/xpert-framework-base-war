@@ -30,6 +30,7 @@ public class RecuperacaoSenhaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        //nao URL deve existir 2 parametros, o email e o token
         String token = request.getParameter("tk");
         String email = request.getParameter("email");
 

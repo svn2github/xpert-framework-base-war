@@ -28,7 +28,7 @@ import org.apache.commons.mail.HtmlEmail;
 @Stateless
 public class EmailBO {
 
-     private static final Configuration cfg = new Configuration();
+    private static final Configuration cfg = new Configuration();
     private static final Logger logger = Logger.getLogger(EmailBO.class.getName());
     @EJB
     private ModeloEmailBO modeloEmailBO;
@@ -72,6 +72,7 @@ public class EmailBO {
      * modelo do email
      * @param parametros Parametros para serem passados para o template
      * @param destinatario Email de destino da mensagem
+     * @param anexos
      * @throws BusinessException
      */
     public void enviar(TipoAssuntoEmail tipoAssuntoEmail, Map<String, Object> parametros, String destinatario, List<Attachment> anexos) throws BusinessException {
@@ -195,20 +196,19 @@ public class EmailBO {
      * @param configuracaoEmail
      * @param destinatario Email de destino
      * * @param anexos Anexos do email
+     * @param anexos
      * @throws BusinessException
      */
     public void enviar(String assunto, String mensagem, ConfiguracaoEmail configuracaoEmail, String destinatario, List<Attachment> anexos) throws BusinessException {
-
-        if (assunto == null || assunto.isEmpty()) {
-            throw new IllegalArgumentException("Email must not be null");
-        }
 
         HtmlEmail email = new HtmlEmail();
         email.setHostName(configuracaoEmail.getHostName());
         try {
 
             for (String string : destinatario.split(",")) {
-                email.addTo(string);
+                if (string != null && !string.isEmpty()) {
+                    email.addTo(string.trim());
+                }
             }
             //anexo
             if (anexos != null) {
@@ -217,13 +217,13 @@ public class EmailBO {
                 }
             }
             email.setCharset("UTF-8");
-            email.setFrom(configuracaoEmail.getEmail(), configuracaoEmail.getEmail());
+            email.setFrom(configuracaoEmail.getEmail(), configuracaoEmail.getNome());
             email.setSubject(assunto);
             email.setHtmlMsg(mensagem);
             email.setAuthentication(configuracaoEmail.getUsuario(), configuracaoEmail.getSenha());
             email.setSmtpPort(configuracaoEmail.getSmtpPort());
-            email.setSSL(configuracaoEmail.isSsl());
-            email.setTLS(configuracaoEmail.isTls());
+            email.setSSLOnConnect(configuracaoEmail.isSsl());
+            email.setStartTLSEnabled(configuracaoEmail.isTls());
 
             email.send();
 

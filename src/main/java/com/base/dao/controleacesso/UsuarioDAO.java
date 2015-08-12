@@ -7,11 +7,16 @@ import javax.ejb.Local;
 
 /**
  *
- * @author #Author
+ * @author Ayslan
  */
 @Local
 public interface UsuarioDAO extends BaseDAO<Usuario> {
-    
+
+    /**
+     * retorn os usuarios ativos (situacaoUsuario = SituacaoUsuario.ATIVO)
+     *
+     * @return
+     */
     public List<Usuario> getUsuariosAtivos();
-    
+
 }

@@ -3,6 +3,7 @@ package com.base.mb.padrao;
 import com.base.modelo.controleacesso.Perfil;
 import com.base.modelo.controleacesso.Permissao;
 import com.base.modelo.controleacesso.SituacaoUsuario;
+import com.base.modelo.controleacesso.TipoRecuperacaoSenha;
 import com.base.modelo.controleacesso.Usuario;
 import com.base.modelo.email.TipoAssuntoEmail;
 import com.xpert.faces.bean.ClassModel;
@@ -29,6 +30,7 @@ public class FindAllBean extends com.xpert.faces.bean.FindAllBean {
         put(Usuario.class, "nome");
         put(SituacaoUsuario.class, "descricao");
         put(TipoAssuntoEmail.class, "descricao");
+        put(TipoRecuperacaoSenha.class, "descricao");
     }
 
     public static void put(Class entity, String order) {

@@ -27,8 +27,8 @@ public class SolicitacaoRecuperacaoSenha implements Serializable {
     @SequenceGenerator(name = "SolicitacaoRecuperacaoSenha", allocationSize = 1, sequenceName = "solicitrecuperacaosenha_id_seq")
     @GeneratedValue(generator = "SolicitacaoRecuperacaoSenha")
     private Long id;
+    
     @Email
-
     private String email;
     private String token;
     private boolean ativo;

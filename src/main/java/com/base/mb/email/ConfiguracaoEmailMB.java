@@ -62,8 +62,6 @@ public class ConfiguracaoEmailMB extends AbstractBaseBean<ConfiguracaoEmail> imp
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
-    
 
     public String getMensagem() {
         return mensagem;

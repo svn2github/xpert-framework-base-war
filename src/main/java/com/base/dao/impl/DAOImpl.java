@@ -19,6 +19,6 @@ public class DAOImpl extends BaseDAOImpl implements DAO {
     @Override
     public <T> BaseDAO<T> getDAO(Class<T> entity) {
         this.setEntityClass(entity);
-        return (BaseDAO<T>) this;
+        return this;
     }
 }
